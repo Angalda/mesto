@@ -5,4 +5,12 @@
     height: 33px;
     background-image: url(../../../images/header-logo.svg);
     display: block;
+    background-size: cover;
+}
+
+@media screen and (max-width: 424px) {
+    .header__logo {
+        width: 103px;
+        height: 24px;
+     }
 }
