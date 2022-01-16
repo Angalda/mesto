@@ -36,8 +36,73 @@
                 
                 <a href="#" class="profile__add-button"></a>
             </section>
+            <!--___________________pop-up__________________________-->
+            <div class="pop-up"><!--pop-up_opened-->
+                <div class="pop-up__container">
+                    <button class="pop-up__closed"></button>
+                    <form action="" class="pop-up__form">
+                        <p class="pop-up__title">Редактировать профиль</p>
+                        <input type="text" class="pop-up__input-name" placeholder="Жак-Ив Кусто">
+                        <input type="text" class="pop-up__input-description" placeholder="Исследователь океана">
+                        <button type="submit" class="pop-up__submit-form">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+
+            <!--___________________photo-cards__________________________-->
+            <section class="photo-cards">
+                <ul class="photo-cards__list">
+                    <li class="photo-cards__item">
+                        <img src="images/photo-card-karachaevsk.jpg" alt="Карачаевск" class="photo-cards__img">
+                        <div class="photo-cards__card-bottom">
+                            <h2 class="photo-cards__title">Карачаевск</h2> 
+                            <button type="radio" class="photo-cards__like"></button>
+                        </div>  
+                    </li>
+                    <li class="photo-cards__item">
+                        <img src="images/photo-card-elbrus.jpg" alt="Эльбрус" class="photo-cards__img">
+                        <div class="photo-cards__card-bottom">
+                            <h2 class="photo-cards__title">Гора Эльбрус</h2> 
+                            <img src="images/photo-card-like.png" alt="like" class="photo-cards__like">
+                        </div> 
+                    </li>
+                    <li class="photo-cards__item">
+                        <img src="images/photo-card-dombay.jpg" alt="Домбай" class="photo-cards__img">
+                        <div class="photo-cards__card-bottom">
+                            <h2 class="photo-cards__title">Домбай</h2> 
+                            <img src="images/photo-card-like.png" alt="like" class="photo-cards__like">
+                        </div> 
+                    </li>
+                    <li class="photo-cards__item">
+                        <img src="images/photo-card-kamchatka.jpg" alt="Камчатка" class="photo-cards__img">
+                        <div class="photo-cards__card-bottom">
+                            <h2 class="photo-cards__title">Камчатка</h2> 
+                            <img src="images/photo-card-like.png" alt="like" class="photo-cards__like">
+                        </div> 
+                    </li>
+                    <li class="photo-cards__item">
+                        <img src="images/photo-card-baikal .jpg" alt="Байкал" class="photo-cards__img">
+                        <div class="photo-cards__card-bottom">
+                            <h2 class="photo-cards__title">Байкал</h2> 
+                            <img src="images/photo-card-like.png" alt="like" class="photo-cards__like">
+                        </div> 
+                    </li>
+                    <li class="photo-cards__item">
+                        <img src="images/photo-card-saint-petersburg.jpg" alt="Санкт-Петербург" class="photo-cards__img">
+                        <div class="photo-cards__card-bottom">
+                            <h2 class="photo-cards__title">Санкт-Петербург</h2> 
+                            <img src="images/photo-card-like.png" alt="like" class="photo-cards__like">
+                        </div> 
+                    </li>
+                </ul>
+            </section>
 
         </div>
+
+        <!--___________________footer__________________________-->
+        <footer class="footer">
+            <p class=footer__copyright>&#169; 2020 Mesto Russia</p>
+        </footer>
     </div>
 
     <script src="index.js"></script>

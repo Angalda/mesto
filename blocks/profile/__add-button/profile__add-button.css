@@ -9,3 +9,15 @@
     border: 2px solid #fff;
     box-sizing: content-box;
 }
+
+.profile__add-button:hover {
+    opacity:  0.6;
+    transition: opacity .3s;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__add-button {
+        padding: 17px 132px;
+        margin: 36px 0 0;
+    }
+}
