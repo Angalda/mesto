@@ -4,7 +4,6 @@
     width: 22px;
     height: 19px;
     background: url("../../../images/photo-card-like.png");
-    
     background-repeat: no-repeat;
     background-position: center;
     border: none;
@@ -17,5 +16,8 @@
 
 .photo-cards__like:active {
     background: url("../../../images/photo-card-like-active.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
 }
 
