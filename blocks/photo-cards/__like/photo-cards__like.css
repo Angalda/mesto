@@ -8,6 +8,7 @@
     background-position: center;
     border: none;
 }
+
 .photo-cards__like:hover {
     opacity:  0.5;
     transition: opacity .3s;
