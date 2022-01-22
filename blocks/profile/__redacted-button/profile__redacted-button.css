@@ -3,18 +3,20 @@
     margin: 0 0 0 18px;
     width: 24px;
     height: 24px;
-    background: url("../../../images/profile-redacted.png");
+    background: url("../../../images/profile-redacted.svg");
+    background-size: cover;
+    border: none;
 }
 
 .profile__redacted-button:hover {
-    opacity:  0.6;
+    opacity: 0.6;
     transition: opacity .3s;
 }
 
 @media screen and (max-width: 767px) {
     .profile__redacted-button {
-     margin: 0 0 0 10px;
+        margin: 0 0 0 10px;
+        width: 18px;
+        height: 18px;
     }
 }
-
-

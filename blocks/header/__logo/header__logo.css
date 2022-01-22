@@ -9,7 +9,7 @@
 }
 
 .header__logo:hover {
-    opacity:  0.8;
+    opacity: 0.8;
     transition: opacity .3s;
 }
 
@@ -17,5 +17,5 @@
     .header__logo {
         width: 103px;
         height: 24px;
-     }
+    }
 }

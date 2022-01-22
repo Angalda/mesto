@@ -1,7 +1,7 @@
 .pop-up__closed {
     padding: 0;
     margin: 0;
-    background: url("../../../images/popup-close.png");
+    background: url("../../../images/popup-close.svg");
     width: 32px;
     height: 32px;
     background-repeat: no-repeat;
@@ -14,7 +14,7 @@
 }
 
 .pop-up__closed:hover {
-    opacity:  0.6;
+    opacity: 0.6;
     transition: opacity .3s;
     cursor: pointer;
 }

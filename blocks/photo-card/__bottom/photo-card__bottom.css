@@ -1,8 +1,8 @@
-.photo-cards__card-bottom {
+.photo-card__bottom {
     padding: 0;
     margin: 0;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     background-color: #fff;
     border-radius: 0px 0px 10px 10px;

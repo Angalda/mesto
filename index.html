@@ -15,11 +15,8 @@
         <!--___________________header_____________________________-->
         <header class="header">
             <a href="#" class="header__logo"></a>
-            <div class="header__line">
-
-            </div>
         </header>
-        <div class="main">
+        <main class="main">
 
             <!--___________________profile__________________________-->
             <section class="profile">
@@ -29,87 +26,89 @@
                     <div class="profile__info">
                         <div class="profile__name-container">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <a href="#" class="profile__redacted-button"></a>
+                            <button class="profile__redacted-button" type="button"></button>
                         </div>
 
                         <p class="profile__description">Исследователь океана</p>
                     </div>
                 </div>
 
-                <a href="#" class="profile__add-button"></a>
+                <button class="profile__add-button" type="button"></button>
             </section>
-            <!--___________________pop-up__________________________-->
-            <div class="pop-up">
-                <!--pop-up_opened-->
-                <div class="pop-up__container">
-                    <button class="pop-up__closed"></button>
-                    <form action="URL" class="pop-up__form">
-                        <p class="pop-up__title">Редактировать профиль</p>
-                        <input type="text" class="pop-up__input-name" value="Жак-Ив Кусто">
-                        <input type="text" class="pop-up__input-description" value="Исследователь океана">
-                        <button type="submit" class="pop-up__submit-form">Сохранить</button>
-                    </form>
-                </div>
-            </div>
 
             <!--___________________photo-cards__________________________-->
             <section class="photo-cards">
                 <ul class="photo-cards__list">
-                    <li class="photo-cards__item">
-                        <img src="images/photo-card-karachaevsk.jpg" alt="Карачаевск" class="photo-cards__img">
-                        <div class="photo-cards__card-bottom">
-                            <h2 class="photo-cards__title">Карачаевск</h2>
-                            <div class="photo-cards__like"></div>
+                    <li class="photo-card">
+                        <img src="images/photo-card-karachaevsk.jpg" alt="Карачаевск" class="photo-card__img">
+                        <div class="photo-card__bottom">
+                            <h2 class="photo-card__title">Карачаевск</h2>
+                            <button class="photo-card__like" type="button"></button>
                         </div>
                     </li>
-                    <li class="photo-cards__item">
-                        <img src="images/photo-card-elbrus.jpg" alt="Эльбрус" class="photo-cards__img">
-                        <div class="photo-cards__card-bottom">
-                            <h2 class="photo-cards__title">Гора Эльбрус</h2>
-                            <div class="photo-cards__like"></div>
+                    <li class="photo-card">
+                        <img src="images/photo-card-elbrus.jpg" alt="Эльбрус" class="photo-card__img">
+                        <div class="photo-card__bottom">
+                            <h2 class="photo-card__title">Гора Эльбрус</h2>
+                            <button class="photo-card__like" type="button"></button>
                         </div>
                     </li>
-                    <li class="photo-cards__item">
-                        <img src="images/photo-card-dombay.jpg" alt="Домбай" class="photo-cards__img">
-                        <div class="photo-cards__card-bottom">
-                            <h2 class="photo-cards__title">Домбай</h2>
-                            <div class="photo-cards__like"></div>
+                    <li class="photo-card">
+                        <img src="images/photo-card-dombay.jpg" alt="Домбай" class="photo-card__img">
+                        <div class="photo-card__bottom">
+                            <h2 class="photo-card__title">Домбай</h2>
+                            <button class="photo-card__like" type="button"></button>
                         </div>
                     </li>
-                    <li class="photo-cards__item">
-                        <img src="images/photo-card-kamchatka.jpg" alt="Камчатка" class="photo-cards__img">
-                        <div class="photo-cards__card-bottom">
-                            <h2 class="photo-cards__title">Камчатка</h2>
-                            <div class="photo-cards__like"></div>
+                    <li class="photo-card">
+                        <img src="images/photo-card-kamchatka.jpg" alt="Камчатка" class="photo-card__img">
+                        <div class="photo-card__bottom">
+                            <h2 class="photo-card__title">Камчатка</h2>
+                            <button class="photo-card__like" type="button"></button>
                         </div>
                     </li>
-                    <li class="photo-cards__item">
-                        <img src="images/photo-card-baikal.jpg" alt="Байкал" class="photo-cards__img">
-                        <div class="photo-cards__card-bottom">
-                            <h2 class="photo-cards__title">Байкал</h2>
-                            <div class="photo-cards__like"></div>
+                    <li class="photo-card">
+                        <img src="images/photo-card-baikal.jpg" alt="Байкал" class="photo-card__img">
+                        <div class="photo-card__bottom">
+                            <h2 class="photo-card__title">Байкал</h2>
+                            <button class="photo-card__like" type="button"></button>
                         </div>
                     </li>
-                    <li class="photo-cards__item">
-                        <img src="images/photo-card-saint-petersburg.jpg" alt="Санкт-Петербург"
-                            class="photo-cards__img">
-                        <div class="photo-cards__card-bottom">
-                            <h2 class="photo-cards__title">Санкт-Петербург</h2>
-                            <div class="photo-cards__like"></div>
+                    <li class="photo-card">
+                        <img src="images/photo-card-saint-petersburg.jpg" alt="Санкт-Петербург" class="photo-card__img">
+                        <div class="photo-card__bottom">
+                            <h2 class="photo-card__title">Санкт-Петербург</h2>
+                            <button class="photo-card__like" type="button"></button>
                         </div>
                     </li>
                 </ul>
             </section>
 
-        </div>
+        </main>
 
         <!--___________________footer__________________________-->
         <footer class="footer">
             <p class=footer__copyright>&#169; 2020 Mesto Russia</p>
         </footer>
+
+        <!--___________________pop-up__________________________-->
+        <div class="pop-up">
+            <!--pop-up_opened-->
+            <div class="pop-up__container">
+                <button class="pop-up__closed" type="button"></button>
+                <form action="URL" class="pop-up__form" method="get" name="form">
+                    <h2 class="pop-up__title">Редактировать профиль</h2>
+                    <input type="text" class="pop-up__input pop-up__input_value_name" name="name" value="Жак-Ив Кусто">
+                    <input type="text" class="pop-up__input pop-up__input_value_description" name="description"
+                        value="Исследователь океана">
+                    <button type="submit" class="pop-up__submit-form">Сохранить</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-    <script src="index.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 
 </html>

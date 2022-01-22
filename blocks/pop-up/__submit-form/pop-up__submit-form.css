@@ -1,5 +1,6 @@
 .pop-up__submit-form {
     padding: 14px 0;
+    margin: 18px 0 0;
     background-color: #000;
     color: #fff;
     font-weight: 400;
@@ -14,4 +15,12 @@
     opacity: 0.8;
     transition: opacity .3s;
     cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .pop-up__submit-form {
+        font-size: 14px;
+        line-height: 17px;
+        margin: 15px 0 0;
+    }
 }
