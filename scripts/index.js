@@ -15,10 +15,8 @@ function closePopUp() { popUp.classList.remove('pop-up_opened') }
 
 function saveInfo(evt) {
     evt.preventDefault();
-    let newName = popUpInputName.value;
-    profileName.textContent = newName;
-    let newDescription = popUpInputDescription.value;
-    profileDescription.textContent = newDescription;
+    profileName.textContent = popUpInputName.value;
+    profileDescription.textContent = popUpInputDescription.value;
     closePopUp()
 }
 
