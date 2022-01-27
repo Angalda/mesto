@@ -37,3 +37,52 @@ popUp.addEventListener('click', function (event) {
     }
 });
 */
+const template = document.querySelector('.template').content;
+const cardsList = document.querySelector('.photo-cards__list');
+
+
+
+
+
+
+const initialCards = [
+    {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+  ];
+
+  function render () {
+    initialCards.forEach(renderItem)
+  }
+
+  function renderItem (item) {
+      const newItem = template.cloneNode(true);
+      newItem.querySelector('.photo-card__title').innerText = item.name;
+      newItem.querySelector('.photo-card__img').src = item.link;
+
+      cardsList.appendChild(newItem)
+
+  }
+  
+  render()
