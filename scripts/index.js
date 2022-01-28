@@ -82,6 +82,7 @@ const initialCards = [
       const newItem = template.cloneNode(true);
       newItem.querySelector('.photo-card__title').innerText = item.name;
       newItem.querySelector('.photo-card__img').src = item.link;
+      addListeners(newItem); // cлушаем события 
 
       cardsList.appendChild(newItem)
 
@@ -110,7 +111,7 @@ const initialCards = [
     const NewObject = new Object();
     NewObject.name = popUpInputValueCardTitle.value;
     NewObject.link = popUpInputValueCardLink.value;
-    initialCards.push(NewObject);
+    initialCards.unshift(NewObject);
     cardsList.innerHTML = '';
     render();
     popUpInputValueCardTitle.value = '';
@@ -121,3 +122,23 @@ const initialCards = [
 }
 
 popUpSubmitFormCard.addEventListener('click', saveInfoCard);
+
+// лайки
+
+
+
+/*const PhotoCardLike = document.querySelector('.photo-card__like');
+PhotoCardLike.addEventListener('click', function(){
+    PhotoCardLike.classList.add('photo-card__like_active');
+})*/
+
+function addListeners(el) {
+    el.querySelector('.photo-card__like').addEventListener('click', handleLike);
+    
+
+
+}
+
+function handleLike(event) {
+    event.target.closest('.photo-card__like').classList.toggle('photo-card__like_active');
+}
