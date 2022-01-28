@@ -135,7 +135,7 @@ PhotoCardLike.addEventListener('click', function(){
 function addListeners(el) {
     el.querySelector('.photo-card__like').addEventListener('click', handleLike);
     el.querySelector('.photo-card__delete').addEventListener('click', handleDelete);
-
+    el.querySelector('.photo-card__img').addEventListener('click', handleView);
 
 }
 
@@ -146,3 +146,19 @@ function handleLike(event) {
 function handleDelete (event) {
     event.target.closest('.photo-card').remove();
 }
+
+const popUpPhoto = document.querySelector('.pop-up__photo');
+const popUpPhotoView = document.querySelector('.pop-up_photo-view');
+
+function handleView(event){
+    popUpPhoto.src = event.target.closest('.photo-card__img').src;
+    popUpPhotoView.classList.add('pop-up_opened');
+
+}
+
+//закрыть окно просмотра фото
+const popUpClosedPhotoView = document.querySelector('.pop-up__closed_photo-view');
+
+popUpClosedPhotoView.addEventListener('click', function(){
+    popUpPhotoView.classList.remove('pop-up_opened');
+})
