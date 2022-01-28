@@ -134,11 +134,15 @@ PhotoCardLike.addEventListener('click', function(){
 
 function addListeners(el) {
     el.querySelector('.photo-card__like').addEventListener('click', handleLike);
-    
+    el.querySelector('.photo-card__delete').addEventListener('click', handleDelete);
 
 
 }
 
 function handleLike(event) {
     event.target.closest('.photo-card__like').classList.toggle('photo-card__like_active');
+}
+
+function handleDelete (event) {
+    event.target.closest('.photo-card').remove();
 }
