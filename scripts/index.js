@@ -45,6 +45,8 @@ const cardsList = document.querySelector('.photo-cards__list');
 
 
 
+
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -84,5 +86,38 @@ const initialCards = [
       cardsList.appendChild(newItem)
 
   }
-  
+
   render()
+
+// открываем и закрываем попап 2
+  const addButton = document.querySelector('.profile__add-button');
+  const popUpCards = document.querySelector('.pop-up_cards');
+  const popUpClosedCard = document.querySelector('.pop-up__closed_card');
+
+  addButton.addEventListener('click', function(){popUpCards.classList.add('pop-up_opened')});
+  popUpClosedCard.addEventListener('click', function(){popUpCards.classList.remove('pop-up_opened')});
+
+  // добавляем в массив по клику
+
+  const popUpSubmitFormCard = document.querySelector('.pop-up__submit-form_card');
+  const popUpInputValueCardTitle = document.querySelector('.pop-up__input_value_card-title');
+  const popUpInputValueCardLink = document.querySelector('.pop-up__input_value_card-link');
+
+  
+  
+  function saveInfoCard(evt) {
+    evt.preventDefault();
+    const NewObject = new Object();
+    NewObject.name = popUpInputValueCardTitle.value;
+    NewObject.link = popUpInputValueCardLink.value;
+    initialCards.push(NewObject);
+    cardsList.innerHTML = '';
+    render();
+    popUpInputValueCardTitle.value = '';
+    popUpInputValueCardLink.value = '';
+
+    popUpCards.classList.remove('pop-up_opened');
+
+}
+
+popUpSubmitFormCard.addEventListener('click', saveInfoCard);
