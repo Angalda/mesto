@@ -19,8 +19,10 @@
 @import url("../blocks/pop-up/__container/_cards/pop-up__container_cards.css");
 @import url("../blocks/pop-up/__closed/pop-up__closed.css");
 @import url("../blocks/pop-up/__photo/pop-up__photo.css");
+@import url("../blocks/pop-up/_photo-view/pop-up_photo-view.css");
 @import url("../blocks/pop-up/__form/pop-up__form.css");
 @import url("../blocks/pop-up/__title/pop-up__title.css");
+@import url("../blocks/pop-up/__title-photo-view/pop-up__title-photo-view.css");
 @import url("../blocks/pop-up/__input/pop-up__input.css");
 @import url("../blocks/pop-up/__input/_value/pop-up__input_value_name.css");
 @import url("../blocks/pop-up/__input/_value/pop-up__input_value_description.css");
