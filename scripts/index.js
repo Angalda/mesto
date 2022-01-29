@@ -36,13 +36,13 @@ let popUpForm = document.querySelector('.pop-up__form');
 const template = document.querySelector('.template').content;
 const cardsList = document.querySelector('.photo-cards__list');
 const addButton = document.querySelector('.profile__add-button');
-const popUpCards = document.querySelector('.pop-up_cards');
+const popUpCards = document.querySelector('.pop-up_type_cards');
 const popUpClosedCard = document.querySelector('.pop-up__closed_card');
 const popUpSubmitFormCard = document.querySelector('.pop-up__submit-form_card');
 const popUpInputValueCardTitle = document.querySelector('.pop-up__input_value_card-title');
 const popUpInputValueCardLink = document.querySelector('.pop-up__input_value_card-link');
 const popUpPhoto = document.querySelector('.pop-up__photo');
-const popUpPhotoView = document.querySelector('.pop-up_photo-view');
+const popUpPhotoView = document.querySelector('.pop-up_type_photo-view');
 const popUpTitlePhotoView = document.querySelector('.pop-up__title-photo-view');
 const popUpClosedPhotoView = document.querySelector('.pop-up__closed_photo-view');
 
@@ -112,6 +112,7 @@ profileRedactionButton.addEventListener('click', openPopUp,
 
 popUpClose.addEventListener('click', closePopUp);
 popUpForm.addEventListener('submit', saveInfo);
+
 // открываем и закрываем попап 2
 addButton.addEventListener('click', function () { popUpCards.classList.add('pop-up_opened') });
 popUpClosedCard.addEventListener('click', function () { popUpCards.classList.remove('pop-up_opened') });

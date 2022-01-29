@@ -38,60 +38,17 @@
 
             <!--___________________photo-cards__________________________-->
             <section class="photo-cards">
-                <ul class="photo-cards__list"><!--
-                    <li class="photo-card">
-                        <img src="images/photo-card-karachaevsk.jpg" alt="Карачаевск" class="photo-card__img">
-                        <div class="photo-card__bottom">
-                            <h2 class="photo-card__title">Карачаевск</h2>
-                            <button class="photo-card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="photo-card">
-                        <img src="images/photo-card-elbrus.jpg" alt="Эльбрус" class="photo-card__img">
-                        <div class="photo-card__bottom">
-                            <h2 class="photo-card__title">Гора Эльбрус</h2>
-                            <button class="photo-card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="photo-card">
-                        <img src="images/photo-card-dombay.jpg" alt="Домбай" class="photo-card__img">
-                        <div class="photo-card__bottom">
-                            <h2 class="photo-card__title">Домбай</h2>
-                            <button class="photo-card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="photo-card">
-                        <img src="images/photo-card-kamchatka.jpg" alt="Камчатка" class="photo-card__img">
-                        <div class="photo-card__bottom">
-                            <h2 class="photo-card__title">Камчатка</h2>
-                            <button class="photo-card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="photo-card">
-                        <img src="images/photo-card-baikal.jpg" alt="Байкал" class="photo-card__img">
-                        <div class="photo-card__bottom">
-                            <h2 class="photo-card__title">Байкал</h2>
-                            <button class="photo-card__like" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="photo-card">
-                        <img src="images/photo-card-saint-petersburg.jpg" alt="Санкт-Петербург" class="photo-card__img">
-                        <div class="photo-card__bottom">
-                            <h2 class="photo-card__title">Санкт-Петербург</h2>
-                            <button class="photo-card__like" type="button"></button>
-                        </div>
-                    </li>-->
-                </ul>
+                <ul class="photo-cards__list"></ul>
             </section>
 
         </main>
 
-        <!--___________________footer__________________________-->
+        <!--___________________footer__________________________________-->
         <footer class="footer">
             <p class=footer__copyright>&#169; 2020 Mesto Russia</p>
         </footer>
 
-        <!--___________________pop-up__________________________-->
+        <!--___________________pop-up_________________________________-->
         <div class="pop-up">
             <!--pop-up_opened-->
             <div class="pop-up__container">
@@ -105,27 +62,30 @@
                 </form>
             </div>
         </div>
+
         <!--___________________pop-up-cards__________________________-->
-        <div class="pop-up pop-up_cards">
-        
-            <div class="pop-up__container_cards">
+        <div class="pop-up pop-up_type_cards">
+
+            <div class="pop-up__container-cards">
                 <button class="pop-up__closed pop-up__closed_card" type="button"></button>
                 <form action="URL" class="pop-up__form" method="get" name="form">
                     <h2 class="pop-up__title">Новое место</h2>
-                    <input type="text" class="pop-up__input pop-up__input_value_card-title" name="card-title" placeholder="Название">
+                    <input type="text" class="pop-up__input pop-up__input_value_card-title" name="card-title"
+                        placeholder="Название">
                     <input type="text" class="pop-up__input pop-up__input_value_card-link" name="card-link"
                         placeholder="Ссылка на картинку">
                     <button type="submit" class="pop-up__submit-form pop-up__submit-form_card">Создать</button>
                 </form>
             </div>
         </div>
+
         <!--___________________pop-up-photo-view__________________________-->
-        <div class="pop-up pop-up_photo-view">
-        
+        <div class="pop-up pop-up_type_photo-view">
+
             <div class="pop-up__container-photo-view">
                 <button class="pop-up__closed pop-up__closed_photo-view" type="button"></button>
-                <img src="" alt="" class="pop-up__photo">
-                <h2 class="pop-up__title-photo-view"></h2>
+                <img src="#" alt="" class="pop-up__photo">
+                <h2 class="pop-up__title-photo-view">Фото</h2>
             </div>
         </div>
 
@@ -140,6 +100,7 @@
             </div>
         </li>
     </template>
+
     <script src="scripts/index.js"></script>
 </body>
 

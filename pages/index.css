@@ -16,10 +16,10 @@
 @import url("../blocks/pop-up/_opened/pop-up_opened.css");
 @import url("../blocks/pop-up/__container/pop-up__container.css");
 @import url("../blocks/pop-up/__container-photo-view/pop-up__container-photo-view.css");
-@import url("../blocks/pop-up/__container/_cards/pop-up__container_cards.css");
+@import url("../blocks/pop-up/__container-cards/pop-up__container-cards.css");
 @import url("../blocks/pop-up/__closed/pop-up__closed.css");
 @import url("../blocks/pop-up/__photo/pop-up__photo.css");
-@import url("../blocks/pop-up/_photo-view/pop-up_photo-view.css");
+@import url("../blocks/pop-up/_type/pop-up_type_photo-view.css");
 @import url("../blocks/pop-up/__form/pop-up__form.css");
 @import url("../blocks/pop-up/__title/pop-up__title.css");
 @import url("../blocks/pop-up/__title-photo-view/pop-up__title-photo-view.css");
