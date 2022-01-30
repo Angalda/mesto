@@ -25,14 +25,14 @@ const initialCards = [
     }
 ];
 
-let profileRedactionButton = document.querySelector('.profile__redacted-button');
-let popUp = document.querySelector('.pop-up');
-let popUpClose = document.querySelector('.pop-up__closed');
-let popUpInputName = document.querySelector('.pop-up__input_value_name');
-let profileName = document.querySelector('.profile__name');
-let popUpInputDescription = document.querySelector('.pop-up__input_value_description');
-let profileDescription = document.querySelector('.profile__description');
-let popUpForm = document.querySelector('.pop-up__form');
+const profileRedactionButton = document.querySelector('.profile__redacted-button');
+const popUp = document.querySelector('.pop-up');
+const popUpClose = document.querySelector('.pop-up__closed');
+const popUpInputName = document.querySelector('.pop-up__input_value_name');
+const profileName = document.querySelector('.profile__name');
+const popUpInputDescription = document.querySelector('.pop-up__input_value_description');
+const profileDescription = document.querySelector('.profile__description');
+const popUpForm = document.querySelector('.pop-up__form');
 const template = document.querySelector('.template').content;
 const cardsList = document.querySelector('.photo-cards__list');
 const addButton = document.querySelector('.profile__add-button');
@@ -46,18 +46,16 @@ const popUpPhotoView = document.querySelector('.pop-up_type_photo-view');
 const popUpTitlePhotoView = document.querySelector('.pop-up__title-photo-view');
 const popUpClosedPhotoView = document.querySelector('.pop-up__closed_photo-view');
 
-function openPopUp() { popUp.classList.add('pop-up_opened') }
-function closePopUp() { popUp.classList.remove('pop-up_opened') }
+function openPopUp(anyPopUp) {anyPopUp.classList.add('pop-up_opened') }
+function closePopUp(anyPopUp) {anyPopUp.classList.remove('pop-up_opened') }
+
+
 
 function saveInfo(evt) {
     evt.preventDefault();
     profileName.textContent = popUpInputName.value;
     profileDescription.textContent = popUpInputDescription.value;
-    closePopUp()
-}
-
-function render() {
-    initialCards.forEach(renderItem)
+    closePopUp(popUp);
 }
 
 function renderItem(item) {
@@ -66,6 +64,10 @@ function renderItem(item) {
     newItem.querySelector('.photo-card__img').src = item.link;
     addListeners(newItem); // cлушаем события 
     cardsList.appendChild(newItem);
+}
+
+function render() {
+    initialCards.forEach(renderItem)
 }
 
 render()
@@ -81,7 +83,7 @@ function saveInfoCard(evt) {
     render();
     popUpInputValueCardTitle.value = '';
     popUpInputValueCardLink.value = '';
-    popUpCards.classList.remove('pop-up_opened');
+    closePopUp(popUpCards);
 }
 
 // лайки, удаление, просмотр
@@ -102,27 +104,25 @@ function handleDelete(event) {
 function handleView(event) {
     popUpPhoto.src = event.target.closest('.photo-card__img').src;
     popUpTitlePhotoView.textContent = event.target.nextElementSibling.textContent;
-    popUpPhotoView.classList.add('pop-up_opened');
+    openPopUp(popUpPhotoView);
 }
 
-profileRedactionButton.addEventListener('click', openPopUp,
+profileRedactionButton.addEventListener('click', function(){openPopUp(popUp)},
     popUpInputName.value = profileName.textContent,
     popUpInputDescription.value = profileDescription.textContent
 );
 
-popUpClose.addEventListener('click', closePopUp);
+popUpClose.addEventListener('click', function(){closePopUp(popUp)});
 popUpForm.addEventListener('submit', saveInfo);
 
 // открываем и закрываем попап 2
-addButton.addEventListener('click', function () { popUpCards.classList.add('pop-up_opened') });
-popUpClosedCard.addEventListener('click', function () { popUpCards.classList.remove('pop-up_opened') });
+addButton.addEventListener('click', function(){openPopUp(popUpCards)} );
+popUpClosedCard.addEventListener('click', function(){closePopUp(popUpCards)});
 
 popUpSubmitFormCard.addEventListener('click', saveInfoCard);
 
 //закрыть окно просмотра фото
-popUpClosedPhotoView.addEventListener('click', function () {
-    popUpPhotoView.classList.remove('pop-up_opened');
-})
+popUpClosedPhotoView.addEventListener('click', function(){closePopUp(popUpPhotoView)});
 
 /*
 Закрываем попап по клику рядом с ним
