@@ -27,12 +27,14 @@ const initialCards = [
 
 const profileRedactionButton = document.querySelector('.profile__redacted-button');
 const popUp = document.querySelector('.pop-up');
+const popUpProfile = document.querySelector('.pop-up_type_profile');
 const popUpClose = document.querySelector('.pop-up__closed');
 const popUpInputName = document.querySelector('.pop-up__input_value_name');
 const profileName = document.querySelector('.profile__name');
 const popUpInputDescription = document.querySelector('.pop-up__input_value_description');
 const profileDescription = document.querySelector('.profile__description');
 const popUpForm = document.querySelector('.pop-up__form');
+const popUpFormCards = document.querySelector('.pop-up__form-cards');
 const template = document.querySelector('.template').content;
 const cardsList = document.querySelector('.photo-cards__list');
 const addButton = document.querySelector('.profile__add-button');
@@ -46,8 +48,8 @@ const popUpPhotoView = document.querySelector('.pop-up_type_photo-view');
 const popUpTitlePhotoView = document.querySelector('.pop-up__title-photo-view');
 const popUpClosedPhotoView = document.querySelector('.pop-up__closed_photo-view');
 
-function openPopUp(anyPopUp) {anyPopUp.classList.add('pop-up_opened') }
-function closePopUp(anyPopUp) {anyPopUp.classList.remove('pop-up_opened') }
+function openPopUp(anyPopUp) { anyPopUp.classList.add('pop-up_opened') }
+function closePopUp(anyPopUp) { anyPopUp.classList.remove('pop-up_opened') }
 
 
 
@@ -55,7 +57,7 @@ function saveInfo(evt) {
     evt.preventDefault();
     profileName.textContent = popUpInputName.value;
     profileDescription.textContent = popUpInputDescription.value;
-    closePopUp(popUp);
+    closePopUp(popUpProfile);
 }
 
 function createCard(item) {
@@ -76,17 +78,13 @@ function render() {
 
 render()
 
-// добавляем в массив по клику
+// добавляем карточку
 function saveInfoCard(evt) {
     evt.preventDefault();
-    const NewObject = new Object();
-    NewObject.name = popUpInputValueCardTitle.value;
-    NewObject.link = popUpInputValueCardLink.value;
-    initialCards.unshift(NewObject);
-    cardsList.innerHTML = '';
-    render();
-    popUpInputValueCardTitle.value = '';
-    popUpInputValueCardLink.value = '';
+    const newCard = {};
+    newCard.name = popUpInputValueCardTitle.value;
+    newCard.link = popUpInputValueCardLink.value;
+    cardsList.prepend(createCard(newCard));
     closePopUp(popUpCards);
 }
 
@@ -107,26 +105,31 @@ function handleDelete(event) {
 
 function handleView(event) {
     popUpPhoto.src = event.target.closest('.photo-card__img').src;
+    popUpPhoto.alt = event.target.nextElementSibling.textContent;
     popUpTitlePhotoView.textContent = event.target.nextElementSibling.textContent;
     openPopUp(popUpPhotoView);
 }
 
-profileRedactionButton.addEventListener('click', function(){openPopUp(popUp)},
-    popUpInputName.value = profileName.textContent,
-    popUpInputDescription.value = profileDescription.textContent
-);
+profileRedactionButton.addEventListener('click', function () {
+    openPopUp(popUpProfile);
+    popUpInputName.value = profileName.textContent;
+    popUpInputDescription.value = profileDescription.textContent;
+});
 
-popUpClose.addEventListener('click', function(){closePopUp(popUp)});
+popUpClose.addEventListener('click', function () { closePopUp(popUpProfile) });
 popUpForm.addEventListener('submit', saveInfo);
 
 // открываем и закрываем попап 2
-addButton.addEventListener('click', function(){openPopUp(popUpCards)} );
-popUpClosedCard.addEventListener('click', function(){closePopUp(popUpCards)});
+addButton.addEventListener('click', function () {
+    popUpFormCards.reset();
+    openPopUp(popUpCards)
+});
+popUpClosedCard.addEventListener('click', function () { closePopUp(popUpCards) });
 
 popUpSubmitFormCard.addEventListener('click', saveInfoCard);
 
 //закрыть окно просмотра фото
-popUpClosedPhotoView.addEventListener('click', function(){closePopUp(popUpPhotoView)});
+popUpClosedPhotoView.addEventListener('click', function () { closePopUp(popUpPhotoView) });
 
 /*
 Закрываем попап по клику рядом с ним
