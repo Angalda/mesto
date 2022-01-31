@@ -58,16 +58,20 @@ function saveInfo(evt) {
     closePopUp(popUp);
 }
 
-function renderItem(item) {
+function createCard(item) {
     const newItem = template.cloneNode(true);
     newItem.querySelector('.photo-card__title').innerText = item.name;
     newItem.querySelector('.photo-card__img').src = item.link;
-    addListeners(newItem); // cлушаем события 
-    cardsList.appendChild(newItem);
+    newItem.querySelector('.photo-card__img').alt = item.name;
+    addListeners(newItem);
+    return (newItem);
 }
 
 function render() {
-    initialCards.forEach(renderItem)
+    initialCards.forEach(function (element) {
+        const card = createCard(element);
+        cardsList.appendChild(card);
+    });
 }
 
 render()
