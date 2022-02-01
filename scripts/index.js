@@ -111,9 +111,9 @@ function handleView(event) {
 }
 
 profileRedactionButton.addEventListener('click', function () {
-    openPopUp(popUpProfile);
     popUpInputName.value = profileName.textContent;
     popUpInputDescription.value = profileDescription.textContent;
+    openPopUp(popUpProfile);
 });
 
 popUpClose.addEventListener('click', function () { closePopUp(popUpProfile) });
