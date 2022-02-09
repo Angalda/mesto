@@ -131,11 +131,16 @@ popUpSubmitFormCard.addEventListener('click', saveInfoCard);
 //закрыть окно просмотра фото
 popUpClosedPhotoView.addEventListener('click', function () { closePopUp(popUpPhotoView) });
 
-/*
-Закрываем попап по клику рядом с ним
-popUp.addEventListener('click', function (event) {
-    if (event.target === event.currentTarget) {
-        closePopUp()
-    }
-});
-*/
+// 6 проектная работа
+
+const popUpArr = Array.from(document.querySelectorAll('.pop-up'));
+
+popUpArr.forEach((item) => {
+    item.addEventListener('click', function (event) {
+        if (event.target === event.currentTarget) {
+            closePopUp(item)
+        }
+    });
+})
+
+
