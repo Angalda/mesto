@@ -55,10 +55,12 @@
                 <button class="pop-up__closed" type="button"></button>
                 <form action="URL" class="pop-up__form" method="get" name="form">
                     <h2 class="pop-up__title">Редактировать профиль</h2>
-                    <input type="text" class="pop-up__input pop-up__input_value_name" name="name" value="Жак-Ив Кусто">
-                    <input type="text" class="pop-up__input pop-up__input_value_description" name="description"
+                    <input type="text" class="pop-up__input pop-up__input_value_name pop-up__input_warning" name="name" value="Жак-Ив Кусто" placeholder="Имя">
+                    <span class="pop-up__input_error pop-up__input_error-name">Вы пропустили это поле.</span>
+                    <input type="text" class="pop-up__input pop-up__input_value_description pop-up__input_warning" name="description" placeholder="О себе"
                         value="Исследователь океана">
-                    <button type="submit" class="pop-up__submit-form">Сохранить</button>
+                        <span class="pop-up__input_error pop-up__input_error-descrption">Вы пропустили это поле.</span>
+                    <button type="submit" class="pop-up__submit-form pop-up__submit-form_disabled">Сохранить</button>
                 </form>
             </div>
         </div>
@@ -70,11 +72,13 @@
                 <button class="pop-up__closed pop-up__closed_card" type="button"></button>
                 <form action="URL" class="pop-up__form pop-up__form-cards" method="get" name="form">
                     <h2 class="pop-up__title">Новое место</h2>
-                    <input type="text" class="pop-up__input pop-up__input_value_card-title" name="card-title"
+                    <input type="text" class="pop-up__input pop-up__input_value_card-title pop-up__input_warning" name="card-title"
                         placeholder="Название">
-                    <input type="text" class="pop-up__input pop-up__input_value_card-link" name="card-link"
+                    <span class="pop-up__input_error pop-up__input_error-title">Вы пропустили это поле.</span>
+                    <input type="text" class="pop-up__input pop-up__input_value_card-link pop-up__input_warning" name="card-link"
                         placeholder="Ссылка на картинку">
-                    <button type="submit" class="pop-up__submit-form pop-up__submit-form_card">Создать</button>
+                    <span class="pop-up__input_error pop-up__input_error-link">Введите адрес сайта.</span>
+                    <button type="submit" class="pop-up__submit-form pop-up__submit-form_card pop-up__submit-form_disabled">Создать</button>
                 </form>
             </div>
         </div>

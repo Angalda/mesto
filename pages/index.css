@@ -24,9 +24,12 @@
 @import url("../blocks/pop-up/__title/pop-up__title.css");
 @import url("../blocks/pop-up/__title-photo-view/pop-up__title-photo-view.css");
 @import url("../blocks/pop-up/__input/pop-up__input.css");
+@import url("../blocks/pop-up/__input/_error/pop-up__input_error.css");
+@import url("../blocks/pop-up/__input/_warning/pop-up__input_warning.css");
 @import url("../blocks/pop-up/__input/_value/pop-up__input_value_name.css");
 @import url("../blocks/pop-up/__input/_value/pop-up__input_value_description.css");
 @import url("../blocks/pop-up/__submit-form/pop-up__submit-form.css");
+@import url("../blocks/pop-up/__submit-form/_disabled/pop-up__submit-form_disabled.css");
 @import url("../blocks/photo-cards/photo-cards.css");
 @import url("../blocks/photo-cards/__list/photo-cards__list.css");
 @import url("../blocks/photo-card/photo-card.css");
