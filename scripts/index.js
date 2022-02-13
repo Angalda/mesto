@@ -141,29 +141,9 @@ popUpArr.forEach((item) => {
             closePopUp(item)
         }
     });
-})
-
-//Профиль валидация
-
-const PopUpInputArr = Array.from(document.querySelectorAll('.pop-up__input'));
-
-//слушаем ввод данных в инпут
-PopUpInputArr.forEach((item) => {item.addEventListener(
-    'input', function(evt){isValid(item)}
-)})
-
-//добавляем класс с ошибкой
-const showInputError = (element) => {element.classList.add('pop-up__input_warning')}
-
-//удаляем класс с ошибкой
-const hideInputError = (element) => {element.classList.remove('pop-up__input_warning')}
-
-//проверяем валидность
-const isValid = (input) => {
-    if (!input.validity.valid) {showInputError(input)
-    } else {
-            hideInputError(input)
+    document.addEventListener('keydown', function(event){
+        if (event.keyCode===27) {
+            closePopUp(item)
         }
-    
-}
-
+    }) 
+})
