@@ -1,51 +1,22 @@
-
-const formsArr = Array.from(document.querySelectorAll('.pop-up__form'));
-
-//Слушаем события в инпутах
-const setEventListeners = (formElement) => {
-    const buttonElement = formElement.querySelector('.pop-up__submit-form');
-    const popUpInputArr = Array.from(formElement.querySelectorAll('.pop-up__input'));
-    toggleButton(popUpInputArr, buttonElement);
-    //слушаем ввод данных в инпут
-    popUpInputArr.forEach((item) => {
-        item.addEventListener(
-            'input', function (evt) { isValid(item) ;
-            toggleButton(popUpInputArr, buttonElement)}
-        )
-    })
-}
-
-//включить проверку для массива форм
-const enableValidation = (forms) => {
-    forms.forEach((formElement) => {
-        formElement.addEventListener('submit', (evt) => {
-            // У каждой формы отменим стандартное поведение
-            evt.preventDefault();
-        });
-        setEventListeners(formElement);
-
-    })
-}
-
 //добавляем класс с ошибкой
-const showInputError = (element) => {element.classList.add('pop-up__input_warning')};
+const showInputError = ({ inputErrorClass }, element) => { element.classList.add(inputErrorClass) };
 
 //удаляем класс с ошибкой
-const hideInputError = (element) => {element.classList.remove('pop-up__input_warning')};
+const hideInputError = ({ inputErrorClass }, element) => { element.classList.remove(inputErrorClass) };
 
-// кнопка 
-//активируем удаляя класс
-const buttonActive = (element) => {element.classList.remove('pop-up__submit-form_disabled');
-element.removeAttribute("disabled");};
+//активируем кнопку удаляя класс
+const buttonActive = (inactiveButtonClass, element) => {
+    element.classList.remove(inactiveButtonClass);
+    element.removeAttribute("disabled");
+};
 
-//деактивируем добавляя класс
+//деактивируем кнопку добавляя класс
+const buttonNotActive = (inactiveButtonClass, element) => {
+    element.classList.add(inactiveButtonClass);
+    element.setAttribute("disabled", "disabled")
+};
 
-const buttonNotActive = (element) => {element.classList.add('pop-up__submit-form_disabled');
-element.setAttribute("disabled", "disabled")};
-
-
-
-// ищем span
+// ищем span для oшибки
 const ErrorId = function (element) {
     const id = element.id;
     return document.querySelector(`.${id}-error`);
@@ -59,22 +30,62 @@ const hasInvalidInput = (inputArr) => {
 }
 
 //Переключаем класс кнопки после проверки полей
-const toggleButton = function (inputList, buttonElement) {
-    if (hasInvalidInput(inputList)) {buttonNotActive(buttonElement)
+const toggleButton = function ({ inactiveButtonClass }, inputList, buttonElement) {
+    if (hasInvalidInput(inputList)) {
+        buttonNotActive(inactiveButtonClass, buttonElement)
     } else {
-        buttonActive(buttonElement)}
+        buttonActive(inactiveButtonClass, buttonElement)
+    }
 }
 
 //проверяем валидность
-const isValid = (input) => {
+const isValid = (rest, input) => {
     if (!input.validity.valid) {
-        showInputError(input);
+        showInputError(rest, input);
         ErrorId(input).textContent = input.validationMessage;
-        console.log(ErrorId(input).textContent);
+
     } else {
-        hideInputError(input);
+        hideInputError(rest, input);
         ErrorId(input).textContent = '';
     }
 }
 
-enableValidation(formsArr);
+//включить проверку для массива форм
+const enableValidation = ({ formSelector, submitButtonSelector, inputSelector, ...rest }) => {
+    //массив форм со страницы
+    const forms = Array.from(document.querySelectorAll(formSelector));
+
+    forms.forEach((formElement) => {
+        formElement.addEventListener('submit', (evt) => {
+            // У каждой формы отменим стандартное поведение
+            evt.preventDefault();
+        });
+        const buttonElement = formElement.querySelector(submitButtonSelector);
+        const popUpInputArr = Array.from(formElement.querySelectorAll(inputSelector));
+
+        toggleButton(rest, popUpInputArr, buttonElement);
+        //слушаем ввод данных в инпут
+        popUpInputArr.forEach((item) => {
+            item.addEventListener(
+                'input', function (evt) {
+                    isValid(rest, item);
+                    toggleButton(rest, popUpInputArr, buttonElement)
+                }
+            )
+        })
+    })
+}
+
+enableValidation({
+    formSelector: '.pop-up__form',
+    submitButtonSelector: '.pop-up__submit-form',
+    inputSelector: '.pop-up__input',
+    inactiveButtonClass: 'pop-up__submit-form_disabled',
+    inputErrorClass: 'pop-up__input_warning',
+});
+
+
+
+//form.checkValidity() проверяет всю форму вернет тру или фолс
+//event.target в каком элементе событие
+//event.target.value = поможет узнать значение при вводе в ипут
