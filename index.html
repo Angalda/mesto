@@ -58,11 +58,11 @@
 
                     <input type="text" class="pop-up__input pop-up__input_value_name" id="profile-name" name="name" value="Жак-Ив Кусто" placeholder="Имя" required minlength="2" maxlength="40">
 
-                    <span class="pop-up__input_error pop-up__input_name-error profile-name-error" id="profile-name-error"></span>
+                    <span class="pop-up__span-error profile-name-error" id="profile-name-error"></span>
 
                     <input type="text" class="pop-up__input pop-up__input_value_description" id="profile-description" name="description" placeholder="О себе" value="Исследователь океана" required minlength="2" maxlength="200">
                         
-                    <span class="pop-up__input_error pop-up__input_descrption-error profile-description-error" id="profile-description-error"></span>
+                    <span class="pop-up__span-error profile-description-error" id="profile-description-error"></span>
                     <!--pop-up__submit-form_disabled-->
                     <button type="submit" class="pop-up__submit-form">Сохранить</button>
                 </form>
@@ -76,19 +76,21 @@
                 <button class="pop-up__closed pop-up__closed_card" type="button"></button>
                 <form action="URL" class="pop-up__form pop-up__form-cards" method="get" name="form" novalidate>
                     <h2 class="pop-up__title">Новое место</h2>
-
-                    <input type="text" class="pop-up__input pop-up__input_value_card-title " id="card-title" name="card-title" placeholder="Название" required minlength="2" maxlength="30">
-
-                    <span class="pop-up__input_error pop-up__input_value_card-title-error card-title-error" id="card-title-error"></span>
-
-                    <input type="url" class="pop-up__input pop-up__input_value_card-link" id="card-link" name="card-link" placeholder="Ссылка на картинку" required>
-
-                    <span class="pop-up__input_error pop-up__input_value_card-link-error card-link-error" id="card-link-error"></span>
-
+                    
+                    <input type="text" class="pop-up__input pop-up__input_value_card-title" id="card-title" name="card-title"
+                        placeholder="Название" required minlength="2" maxlength="30">
+                    
+                    <span class="pop-up__span-error card-title-error" id="card-title-error"></span>
+                    
+                    <input type="url" class="pop-up__input pop-up__input_value_card-link" id="card-link" name="card-link"
+                        placeholder="Ссылка на картинку" required>
+                    
+                    <span class="pop-up__span-error card-link-error" id="card-link-error"></span>
+                    
                     <button type="submit" class="pop-up__submit-form pop-up__submit-form_card">Создать</button>
-                </form>
-            </div>
-        </div>
+                    </form>
+                    </div>
+                    </div>
 
         <!--___________________pop-up-photo-view__________________________-->
         <div class="pop-up pop-up_type_photo-view">
