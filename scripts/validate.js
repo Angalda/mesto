@@ -5,19 +5,19 @@ const showInputError = ({ inputErrorClass }, element) => { element.classList.add
 const hideInputError = ({ inputErrorClass }, element) => { element.classList.remove(inputErrorClass) };
 
 //активируем кнопку удаляя класс
-const buttonActive = (inactiveButtonClass, element) => {
+const activeButton = (inactiveButtonClass, element) => {
     element.classList.remove(inactiveButtonClass);
     element.removeAttribute("disabled");
 };
 
 //деактивируем кнопку добавляя класс
-const buttonNotActive = (inactiveButtonClass, element) => {
+const deactiveButton = (inactiveButtonClass, element) => {
     element.classList.add(inactiveButtonClass);
     element.setAttribute("disabled", "disabled")
 };
 
 // ищем span для oшибки
-const ErrorId = function (element) {
+const findSpanError = function (element) {
     const id = element.id;
     return document.querySelector(`.${id}-error`);
 }
@@ -32,9 +32,9 @@ const hasInvalidInput = (inputArr) => {
 //Переключаем класс кнопки после проверки полей
 const toggleButton = function ({ inactiveButtonClass }, inputList, buttonElement) {
     if (hasInvalidInput(inputList)) {
-        buttonNotActive(inactiveButtonClass, buttonElement)
+        deactiveButton(inactiveButtonClass, buttonElement)
     } else {
-        buttonActive(inactiveButtonClass, buttonElement)
+        activeButton(inactiveButtonClass, buttonElement)
     }
 }
 
@@ -42,11 +42,11 @@ const toggleButton = function ({ inactiveButtonClass }, inputList, buttonElement
 const isValid = (rest, input) => {
     if (!input.validity.valid) {
         showInputError(rest, input);
-        ErrorId(input).textContent = input.validationMessage;
+        findSpanError(input).textContent = input.validationMessage;
 
     } else {
         hideInputError(rest, input);
-        ErrorId(input).textContent = '';
+        findSpanError(input).textContent = '';
     }
 }
 
@@ -83,8 +83,6 @@ enableValidation({
     inactiveButtonClass: 'pop-up__submit-form_disabled',
     inputErrorClass: 'pop-up__input_warning',
 });
-
-
 
 //form.checkValidity() проверяет всю форму вернет тру или фолс
 //event.target в каком элементе событие
