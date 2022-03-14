@@ -76,22 +76,18 @@ function saveProfileInfo(evt) {
     closePopUp(popUpProfile);
 }
 
-/*function createCard(item) {
-    const newItem = template.cloneNode(true);
-    newItem.querySelector('.photo-card__title').innerText = item.name;
-    const photo = newItem.querySelector('.photo-card__img');
-    photo.src = item.link;
-    photo.alt = item.name;
-    addListeners(newItem);
-    return (newItem);
-}*/
+function createCard(item) {
+
+    const newUserCard = new Card(item, '.template');
+    const card = newUserCard.generateCard();
+    
+    return card;
+}
 
 function render() {
     initialCards.forEach(function (element) {
-        const newCard = new Card(element, template);
-        const card = newCard.createCard();
+        const card = createCard(element);
         cardsList.appendChild(card);
-        console.log(cardsList);
     });
 }
 
