@@ -1,4 +1,4 @@
-//добавляем класс с ошибкой
+/*//добавляем класс с ошибкой
 const showInputError = ({ inputErrorClass }, element) => { element.classList.add(inputErrorClass) };
 
 //удаляем класс с ошибкой

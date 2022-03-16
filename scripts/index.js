@@ -1,4 +1,5 @@
 import  {Card}  from './Card.js';
+import {FormValidator} from './FormValidator.js';
 
 const initialCards = [
     {
@@ -51,6 +52,21 @@ export const popUpTitlePhotoView = document.querySelector('.pop-up__title-photo-
 const popUpClosedPhotoView = document.querySelector('.pop-up__closed_photo-view');
 const popups = document.querySelectorAll('.pop-up')
 const popUpArr = Array.from(document.querySelectorAll('.pop-up'));
+
+const validationConfig = {
+    formSelector: '.pop-up__form',
+    inputSelector: '.pop-up__input',
+    submitButtonSelector: '.pop-up__submit-form',
+    inactiveButtonClass: 'pop-up__submit-form_disabled',
+    inputErrorClass: 'pop-up__input_warning',
+    errorClass: 'pop-up__span-error'
+};
+
+const editProfileValidator = new FormValidator(validationConfig, popUpFormProfile);
+const addCardValidator = new FormValidator(validationConfig, popUpFormCards);
+
+editProfileValidator.enableValidation();
+addCardValidator.enableValidation();
 
 export function openPopUp(anyPopUp) {
     anyPopUp.classList.add('pop-up_opened');
@@ -105,39 +121,19 @@ function saveInfoCard(evt) {
     popUpSubmitFormCard.classList.add('pop-up__submit-form_disabled');
     popUpSubmitFormCard.setAttribute("disabled", "disabled");
 }
-/*
-// лайки, удаление, просмотр
-function addListeners(el) {
-    el.querySelector('.photo-card__like').addEventListener('click', handleLike);
-    el.querySelector('.photo-card__delete').addEventListener('click', handleDelete);
-    el.querySelector('.photo-card__img').addEventListener('click', handleView);
-}*/
-
-/*function handleLike(event) {
-    event.target.classList.toggle('photo-card__like_active');
-}
-
-function handleDelete(event) {
-    event.target.closest('.photo-card').remove();
-}
-
-function handleView(event) {
-    popUpPhoto.src = event.target.src;
-    popUpPhoto.alt = event.target.alt;
-    popUpTitlePhotoView.textContent = event.target.alt;
-    openPopUp(popUpPhotoView);
-}*/
-
+//Открываем по клику попап профиль
 profileRedactionButton.addEventListener('click', function () {
     popUpInputName.value = profileName.textContent;
     popUpInputDescription.value = profileDescription.textContent;
+    //editProfileValidator.disabledSubmitButton();
     openPopUp(popUpProfile);
 });
 
 popUpFormProfile.addEventListener('submit', saveProfileInfo);
 
-// открываем попап
+// открываем по клику попап карточек
 addButton.addEventListener('click', function () {
+    //addCardValidator.disabledSubmitButton();
     openPopUp(popUpCards)
 });
 
