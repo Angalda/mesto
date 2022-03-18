@@ -31,27 +31,22 @@ const initialCards = [
 
 const profileRedactionButton = document.querySelector('.profile__redacted-button');
 const popUpProfile = document.querySelector('.pop-up_type_profile');
-const profileCloseBtn = popUpProfile.querySelector('.pop-up__closed');
 const popUpInputName = document.querySelector('.pop-up__input_value_name');
 const profileName = document.querySelector('.profile__name');
 const popUpInputDescription = document.querySelector('.pop-up__input_value_description');
 const profileDescription = document.querySelector('.profile__description');
 const popUpFormProfile = document.querySelector('.pop-up__form_profle');
 const popUpFormCards = document.querySelector('.pop-up__form-cards');
-const template = document.querySelector('.template');
 const cardsList = document.querySelector('.photo-cards__list');
 const addButton = document.querySelector('.profile__add-button');
 const popUpCards = document.querySelector('.pop-up_type_cards');
-const popUpClosedCard = document.querySelector('.pop-up__closed_card');
 const popUpSubmitFormCard = document.querySelector('.pop-up__submit-form_card');
 const popUpInputValueCardTitle = document.querySelector('.pop-up__input_value_card-title');
 const popUpInputValueCardLink = document.querySelector('.pop-up__input_value_card-link');
 export const popUpPhoto = document.querySelector('.pop-up__photo');
-const popUpPhotoView = document.querySelector('.pop-up_type_photo-view');
 export const popUpTitlePhotoView = document.querySelector('.pop-up__title-photo-view');
-const popUpClosedPhotoView = document.querySelector('.pop-up__closed_photo-view');
 const popups = document.querySelectorAll('.pop-up')
-const popUpArr = Array.from(document.querySelectorAll('.pop-up'));
+
 
 const validationConfig = {
     formSelector: '.pop-up__form',

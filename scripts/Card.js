@@ -1,34 +1,33 @@
-import {openPopUp, popUpTitlePhotoView, popUpPhoto} from './index.js';
+import { openPopUp, popUpTitlePhotoView, popUpPhoto } from './index.js';
 
-export {Card}
+export { Card }
 
 class Card {
-    constructor (data, template) {
+    constructor(data, template) {
         this._name = data.name;
         this._link = data.link;
         this._alt = data.name;
         this._template = template;
-        
     }
 
     _getTemplate() {
         // забираем разметку из HTML и клонируем элемент
-          const cardElement = document
-          .querySelector(this._template)
-          .content
-          .querySelector('.photo-card')
-          .cloneNode(true);
-          
-        // вернём DOM-элемент карточки
-          return cardElement;
-    } 
+        const cardElement = document
+            .querySelector(this._template)
+            .content
+            .querySelector('.photo-card')
+            .cloneNode(true);
 
-   generateCard() {
+        // вернём DOM-элемент карточки
+        return cardElement;
+    }
+
+    generateCard() {
         this._newItem = this._getTemplate();
         this._setEventListeners();
         this._newItem.querySelector('.photo-card__title').innerText = this._name;
-        this._newItem.querySelector('.photo-card__img').src=this._link;
-        this._newItem.querySelector('.photo-card__img').alt=this._alt;
+        this._newItem.querySelector('.photo-card__img').src = this._link;
+        this._newItem.querySelector('.photo-card__img').alt = this._alt;
 
         return this._newItem;
     }
@@ -55,8 +54,6 @@ class Card {
         popUpTitlePhotoView.textContent = event.target.alt;
         openPopUp(popUpPhotoView);
     }
-
-
 
 }
 

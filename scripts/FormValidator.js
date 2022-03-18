@@ -83,13 +83,5 @@ export class FormValidator {
         this._setEventListeners()
     }
 
-   /*resetErrors() {
-        this._form.reset();
-        this._inputList.forEach(() => {
-            this._checkInputValidity(inputElement);
-            
-        })
-        this._toggleButtonState();
-    }*/
 }
 
