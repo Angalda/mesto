@@ -1,4 +1,4 @@
-import { openPopUp, popUpTitlePhotoView, popUpPhoto } from './index.js';
+import { openPopUp, popUpTitlePhotoView, popUpPhoto, popUpPhotoView } from './index.js';
 
 export { Card }
 
@@ -24,34 +24,41 @@ class Card {
 
     generateCard() {
         this._newItem = this._getTemplate();
+        
+        this._elementTitle = this._newItem.querySelector('.photo-card__title');
+        this._elementImage = this._newItem.querySelector('.photo-card__img');
+        this._elementLike = this._newItem.querySelector('.photo-card__like');
+        this._deleteCard = this._newItem.querySelector('.photo-card__delete');
+
+        this._elementTitle.innerText = this._name;
+        this._elementImage.src = this._link;
+        this._elementImage.alt = this._alt;
+
         this._setEventListeners();
-        this._newItem.querySelector('.photo-card__title').innerText = this._name;
-        this._newItem.querySelector('.photo-card__img').src = this._link;
-        this._newItem.querySelector('.photo-card__img').alt = this._alt;
 
         return this._newItem;
     }
 
     //слушатели событий
     _setEventListeners() {
-        this._newItem.querySelector('.photo-card__like').addEventListener('click', this._handleLike);
-        this._newItem.querySelector('.photo-card__delete').addEventListener('click', this._handleDelete);
-        this._newItem.querySelector('.photo-card__img').addEventListener('click', this._handleView);
+        this._elementLike.addEventListener('click', () => {this._handleLike()});
+        this._deleteCard.addEventListener('click', () => {this._handleDelete()});
+        this._elementImage.addEventListener('click', () => {this._handleView()});
     }
 
     //функции событий
-    _handleLike(event) {
-        event.target.classList.toggle('photo-card__like_active');
+    _handleLike() {
+        this._elementLike.classList.toggle('photo-card__like_active');
     }
 
-    _handleDelete(event) {
-        event.target.closest('.photo-card').remove();
+    _handleDelete() {
+        this._newItem.remove();
     }
 
-    _handleView(event) {
-        popUpPhoto.src = event.target.src;
-        popUpPhoto.alt = event.target.alt;
-        popUpTitlePhotoView.textContent = event.target.alt;
+    _handleView() {
+        popUpPhoto.src = this._elementImage.src;
+        popUpPhoto.alt = this._elementImage.alt;
+        popUpTitlePhotoView.textContent = this._elementTitle;
         openPopUp(popUpPhotoView);
     }
 

@@ -45,7 +45,8 @@ const popUpInputValueCardTitle = document.querySelector('.pop-up__input_value_ca
 const popUpInputValueCardLink = document.querySelector('.pop-up__input_value_card-link');
 export const popUpPhoto = document.querySelector('.pop-up__photo');
 export const popUpTitlePhotoView = document.querySelector('.pop-up__title-photo-view');
-const popups = document.querySelectorAll('.pop-up')
+const popups = document.querySelectorAll('.pop-up');
+export const popUpPhotoView = document.querySelector('.pop-up_type_photo-view');
 
 
 const validationConfig = {
@@ -113,7 +114,6 @@ function saveInfoCard(evt) {
     cardsList.prepend(createCard(newCard));
     closePopUp(popUpCards);
     popUpFormCards.reset();
-    popUpSubmitFormCard.classList.add('pop-up__submit-form_disabled');
     popUpSubmitFormCard.setAttribute("disabled", "disabled");
 }
 //Открываем по клику попап профиль
@@ -127,9 +127,12 @@ profileRedactionButton.addEventListener('click', function () {
 popUpFormProfile.addEventListener('submit', saveProfileInfo);
 
 // открываем по клику попап карточек
-addButton.addEventListener('click', function () {
+addButton.addEventListener('click', () => {
     //addCardValidator.disabledSubmitButton();
-    openPopUp(popUpCards)
+    openPopUp(popUpCards);
+
+    addCardValidator.resetValidation();
+    popUpFormCards.reset();
 });
 
 popUpFormCards.addEventListener('submit', saveInfoCard);
