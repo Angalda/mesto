@@ -1,5 +1,6 @@
 import  {Card}  from './Card.js';
 import {FormValidator} from './FormValidator.js';
+import { Section } from './Section.js';
 
 const initialCards = [
     {
@@ -88,7 +89,7 @@ function saveProfileInfo(evt) {
     closePopUp(popUpProfile);
 }
 
-function createCard(item) {
+/*function createCard(item) {
 
     const newUserCard = new Card(item, '.template');
     const card = newUserCard.generateCard();
@@ -99,11 +100,33 @@ function createCard(item) {
 function render() {
     initialCards.forEach(function (element) {
         const card = createCard(element);
-        cardsList.appendChild(card);
+        //cardsList.appendChild(card);
+        return card;
     });
 }
 
-render()
+render()*/
+
+
+//Отрисовываем все карточки и добавляем на страницу
+const sectionCards  = new Section(
+    {
+        items: initialCards,
+        renderer: (item) => {
+
+            const newUserCard = new Card(item, '.template');
+            const card = newUserCard.generateCard();
+            
+            return card;
+        }
+    
+    },
+    '.photo-cards__list'
+); 
+
+sectionCards.addItem();
+
+
 
 // добавляем карточку
 function saveInfoCard(evt) {
