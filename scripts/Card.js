@@ -1,13 +1,14 @@
-import { openPopUp, popUpTitlePhotoView, popUpPhoto, popUpPhotoView } from './index.js';
+/*import { popUpTitlePhotoView, popUpPhoto, popUpPhotoView } from './index.js';*/
 
 export { Card }
 
 class Card {
-    constructor(data, template) {
+    constructor(data, template, handleImageClick) {
         this._name = data.name;
         this._link = data.link;
         this._alt = data.name;
         this._template = template;
+        this._handleImageClick = handleImageClick;
     }
 
     _getTemplate() {
@@ -43,7 +44,7 @@ class Card {
     _setEventListeners() {
         this._elementLike.addEventListener('click', () => {this._handleLike()});
         this._deleteCard.addEventListener('click', () => {this._handleDelete()});
-        this._elementImage.addEventListener('click', () => {this._handleView()});
+        this._elementImage.addEventListener('click', () => {this._handleImageClick()});
     }
 
     //функции событий
@@ -55,12 +56,12 @@ class Card {
         this._newItem.remove();
     }
 
-    _handleView() {
+   /* _handleView() {
         popUpPhoto.src = this._elementImage.src;
         popUpPhoto.alt = this._elementImage.alt;
         popUpTitlePhotoView.textContent = this._elementTitle;
         openPopUp(popUpPhotoView);
-    }
+    }*/
 
 }
 
