@@ -56,13 +56,7 @@ class Card {
         this._newItem.remove();
     }
 
-   /* _handleView() {
-        popUpPhoto.src = this._elementImage.src;
-        popUpPhoto.alt = this._elementImage.alt;
-        popUpTitlePhotoView.textContent = this._elementTitle;
-        openPopUp(popUpPhotoView);
-    }*/
-
+  
 }
 
 

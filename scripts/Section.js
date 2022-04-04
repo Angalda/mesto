@@ -15,19 +15,9 @@ export  class Section {
         this._items.forEach(element => {
             const item = this._renderer(element);
             this._CardListSelector.prepend(item);
-        });
-
-        
+        });   
        
     }
-
-   
 }
 
 
-/*function render() {
-    initialCards.forEach(function (element) {
-        const card = createCard(element);
-        cardsList.appendChild(card);
-    });
-}*/
