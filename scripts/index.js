@@ -3,6 +3,7 @@ import {FormValidator} from './FormValidator.js';
 import { Section } from './Section.js';
 import { PopupWithImage } from './PopupWithImage.js';
 import { PopupWithForm } from './PopupWithForm.js';
+import { UserInfo } from './UserInfo.js';
 
 const initialCards = [
     {
@@ -70,48 +71,14 @@ addCardValidator.enableValidation();
 
 
 //Сохраняем информацию в профиле
-function saveProfileInfo(/*evt*/) {
-   // evt.preventDefault();
-    profileName.textContent = popUpInputName.value;
-    profileDescription.textContent = popUpInputDescription.value;
+const saveProfileInfo = (data) => {
+   const {name, description} = data;
+
+    profileName.textContent = name;
+    profileDescription.textContent = description;
     editProfilePopup.close();
 }
 
-
-//Отрисовываем все карточки и добавляем на страницу с помощью классов
-const sectionCards  = new Section (
-    {
-        items: initialCards,
-        renderer: (item) => {
-            const newUserCard = new Card(item, '.template', () => imagePopup.open(item.name, item.link));
-            const card = newUserCard.generateCard();
-            
-            return card;
-        }
-    
-    },
-    '.photo-cards__list'
-); 
-
-sectionCards.addItem();
-
-
-//Попапы трех видов
-const imagePopup = new PopupWithImage ('.pop-up_type_photo-view');
-const addCardPopup = new PopupWithForm ('.pop-up_type_cards', createNewCard);
-const editProfilePopup = new PopupWithForm ('.pop-up_type_profile',  saveProfileInfo);
-
-imagePopup.setEventListeners();
-addCardPopup.setEventListeners();
-editProfilePopup.setEventListeners();
-
-
-
- //Добавление новой карточки вместо saveInfoCard()
-function createNewCard (newCard){
-    cardsList.prepend(createCard(newCard));
-    //addCardPopup.close();
-}
 
 //создание карточки
 function createCard(item) {
@@ -121,16 +88,64 @@ function createCard(item) {
     return card;
 }
 
-// перебираем массив данных и вызываем функцию создания карточек
-function render() {
-    initialCards.forEach(function (element) {
-        const card = createCard(element);
-        
-        return card;
-    });
+
+const rendererCard = (data, wrap) => {
+    const card = createCard(data);
+    sectionCards.addItem(card)
 }
 
-render()
+//Отрисовываем все карточки и добавляем на страницу с помощью классов
+const sectionCards  = new Section (
+    {
+        items: initialCards,
+        renderer: rendererCard
+    },
+    '.photo-cards__list'
+); 
+
+sectionCards.renderItems();
+
+
+//Попапы трех видов
+const imagePopup = new PopupWithImage ('.pop-up_type_photo-view');
+const addCardPopup = new PopupWithForm ('.pop-up_type_cards', handleCardFormSubmit);
+const editProfilePopup = new PopupWithForm ('.pop-up_type_profile',  saveProfileInfo);
+
+imagePopup.setEventListeners();
+addCardPopup.setEventListeners();
+editProfilePopup.setEventListeners();
+
+
+const userInfo = new UserInfo({
+    profileNameSelector: '.pop-up__input_value_name',
+    profileNameSelectorJobSelector: '.pop-up__input_value_description'})
+
+
+ //Добавление новой карточки вместо saveInfoCard()
+function handleCardFormSubmit (data) {
+    const card = createCard({
+        name: data['card-title'],
+        link: data['card-link']
+    });
+    sectionCards.addItem(card);
+    addCardPopup.close();
+
+
+    //cardsList.prepend(createCard(newCard));
+    //addCardPopup.close();
+}
+
+
+    // перебираем массив данных и вызываем функцию создания карточек
+    /*function render() {
+        initialCards.forEach(function (element) {
+            const card = createCard(element);
+            
+            return card;
+        });
+    }*/
+
+//render()
 
 
 
@@ -148,6 +163,14 @@ addButton.addEventListener('click', () => {
 });
 
 
+//Открываем по клику попап профиль
+
+profileRedactionButton.addEventListener('click', function () {
+    popUpInputName.value = profileName.textContent;
+    popUpInputDescription.value = profileDescription.textContent;
+    //editProfileValidator.disabledSubmitButton();
+    editProfilePopup.open();
+});
 
 
 
@@ -170,17 +193,6 @@ function saveInfoCard() {
     popUpSubmitFormCard.setAttribute("disabled", "disabled");
 }
 */
-
-
-//Открываем по клику попап профиль
-
-/*profileRedactionButton.addEventListener('click', function () {
-    popUpInputName.value = profileName.textContent;
-    popUpInputDescription.value = profileDescription.textContent;
-    //editProfileValidator.disabledSubmitButton();
-    openPopUp(popUpProfile);
-});*/
-
 
 
 //popUpFormCards.addEventListener('submit', saveInfoCard);*/
