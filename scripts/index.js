@@ -73,9 +73,10 @@ addCardValidator.enableValidation();
 //Сохраняем информацию в профиле
 const saveProfileInfo = (data) => {
    const {name, description} = data;
+   userInfo.setUserInfo(name, description);
 
-    profileName.textContent = name;
-    profileDescription.textContent = description;
+    //profileName.textContent = name;
+    //profileDescription.textContent = description;
     editProfilePopup.close();
 }
 
@@ -117,9 +118,11 @@ editProfilePopup.setEventListeners();
 
 
 const userInfo = new UserInfo({
-    profileNameSelector: '.pop-up__input_value_name',
-    profileNameSelectorJobSelector: '.pop-up__input_value_description'})
+    profileNameSelector: '.profile__name',
+    profileJobSelector: '.profile__description'
+})
 
+userInfo.setUserInfo(title, job)
 
  //Добавление новой карточки вместо saveInfoCard()
 function handleCardFormSubmit (data) {
