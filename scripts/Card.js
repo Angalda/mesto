@@ -1,5 +1,3 @@
-/*import { popUpTitlePhotoView, popUpPhoto, popUpPhotoView } from './index.js';*/
-
 export { Card }
 
 class Card {
@@ -56,7 +54,6 @@ class Card {
         this._newItem.remove();
     }
 
-  
 }
 
 

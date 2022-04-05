@@ -1,4 +1,3 @@
-//import closeByEscape from './index.js';
 
 export class Popup {
     constructor(selectorPopup) {
@@ -18,8 +17,6 @@ export class Popup {
 
     _handleEscClose(evt) {
         if (evt.key === 'Escape') {
-            //const openedPopup = document.querySelector('.pop-up_opened');
-            //closePopUp(openedPopup);
             this.close();
         }
     }
