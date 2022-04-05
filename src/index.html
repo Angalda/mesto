@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="pages/index.css">
+    <!--<link rel="stylesheet" href="pages/index.css">-->
 </head>
 
 <body>
@@ -21,8 +21,8 @@
             <!--___________________profile__________________________-->
             <section class="profile">
                 <div class="profile__contain">
-                    <img src="images/profile-avatar.jpg" alt="аватар" class="profile__avatar">
-
+                    <img src="<%=require('./images/profile-avatar.jpg')%>" alt="аватар" class="profile__avatar">
+                    
                     <div class="profile__info">
                         <div class="profile__name-container">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -114,7 +114,7 @@
         </li>
     </template>
 
-    <script type="module" src="scripts/index.js"></script>
+    <script type="module" src="index.js"></script>
     
 </body>
 
