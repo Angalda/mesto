@@ -25,6 +25,7 @@
 @import url("../blocks/pop-up/__title-photo-view/pop-up__title-photo-view.css");
 @import url("../blocks/pop-up/__input/pop-up__input.css");
 @import url("../blocks/pop-up/__span-error/pop-up__span-error.css");
+@import url("../blocks/pop-up/__span-error/_visible/pop-up__span-error_visible.css");
 @import url("../blocks/pop-up/__input/_warning/pop-up__input_warning.css");
 @import url("../blocks/pop-up/__input/_value/pop-up__input_value_name.css");
 @import url("../blocks/pop-up/__input/_value/pop-up__input_value_description.css");

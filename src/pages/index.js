@@ -1,13 +1,12 @@
-import './pages/index.css';
 import { initialCards, profileRedactionButton, popUpInputName, popUpInputDescription,
-popUpFormProfile, popUpFormCards, addButton, validationConfig } from './scripts/constants.js';
-import { Card } from './scripts/Card.js';
-import { FormValidator } from './scripts/FormValidator.js';
-import { Section } from './scripts/Section.js';
-import { PopupWithImage } from './scripts/PopupWithImage.js';
-import { PopupWithForm } from './scripts/PopupWithForm.js';
-import { UserInfo } from './scripts/UserInfo.js';
-//import { from } from 'core-js/core/array';
+popUpFormProfile, popUpFormCards, addButton, validationConfig } from '../scripts/constants.js';
+import { Card } from '../scripts/components/Card.js';
+import { FormValidator } from '../scripts/components/FormValidator.js';
+import { Section } from '../scripts/components/Section.js';
+import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
+import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { UserInfo } from '../scripts/components/UserInfo.js';
+import '../pages/index.css';
 
 
 const editProfileValidator = new FormValidator(validationConfig, popUpFormProfile);
@@ -35,7 +34,7 @@ function createCard(item) {
 }
 
 
-const rendererCard = (data, wrap) => {
+const rendererCard = (data) => {
     const card = createCard(data);
     sectionCards.addItem(card)
 }
@@ -80,9 +79,8 @@ function handleCardFormSubmit(data) {
 
 // открываем по клику попап карточек
 addButton.addEventListener('click', () => {
-    addCardPopup.open();
     addCardValidator.resetValidation();
-    popUpFormCards.reset();
+    addCardPopup.open();
 });
 
 

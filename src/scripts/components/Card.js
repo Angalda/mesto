@@ -52,6 +52,7 @@ class Card {
 
     _handleDelete() {
         this._newItem.remove();
+        this._newItem = null;
     }
 
 }
