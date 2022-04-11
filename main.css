@@ -22,6 +22,7 @@
 .pop-up_type_photo-view{background:rgba(0,0,0,.9)}
 .pop-up__form{display:flex;flex-direction:column;margin:0;padding:0}
 .pop-up__title{color:#000;font-size:24px;font-weight:900;line-height:29px;margin:0 0 39px;padding:0}@media screen and (max-width:600px){.pop-up__title{font-size:18px;line-height:22px;margin:0 0 65px}}
+.pop-up__title_delete{margin:0}@media screen and (max-width:600px){.pop-up__title_delete{margin:0}}
 .pop-up__title-photo-view{bottom:-20px;color:#fff;font-size:12px;font-style:normal;font-weight:400;left:0;line-height:15px;margin:0;padding:0;position:absolute}
 .pop-up__input{border:none;border-bottom:1px solid rgba(0,0,0,.2);color:#000;font-size:14px;font-weight:400;line-height:17px;margin:0 0 20px;padding:10px 0;width:100%}
 .pop-up__span-error{display:block;height:15px;margin:0;padding:0;position:relative;top:-15px}
@@ -31,6 +32,7 @@
 
 .pop-up__submit-form{background-color:#000;border:none;border-radius:2px;color:#fff;font-size:18px;font-weight:400;line-height:22px;margin:28px 0 0;padding:14px 0;text-align:center}.pop-up__submit-form:hover{cursor:pointer;opacity:.8;transition:opacity .3s}@media screen and (max-width:600px){.pop-up__submit-form{font-size:14px;line-height:17px;margin:25px 0 0}}
 .pop-up__submit-form_disabled{background:#fff;border:1px solid rgba(0,0,0,.2);border-radius:2px;box-sizing:border-box;color:rgba(0,0,0,.2)}
+.pop-up__submit-form_delete{margin-top:38px;width:100%}
 .photo-cards{box-sizing:border-box;color:#000;margin:0 auto;max-width:880px;min-height:100vh;padding:0;width:100%}@media screen and (max-width:900px){.photo-cards{padding:0 19px}}
 .photo-cards__list{align-items:center;display:grid;font-size:0;gap:20px 17px;grid-auto-flow:row;grid-template-columns:repeat(auto-fill,282px);justify-content:center;list-style:none;margin:0;padding:0;width:100%}
 .photo-card{font-size:0;margin:0;padding:0;position:relative}
