@@ -5,6 +5,7 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
+import { PopupDelete } from '../scripts/components/PopupDelete.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import '../pages/index.css';
 
@@ -57,6 +58,7 @@ const sectionCards = new Section(
 const imagePopup = new PopupWithImage('.pop-up_type_photo-view');
 const addCardPopup = new PopupWithForm('.pop-up_type_cards', handleCardFormSubmit);
 const editProfilePopup = new PopupWithForm('.pop-up_type_profile', saveProfileInfo);
+const deletePopup = new PopupDelete('.pop-up_type_delete', )
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
@@ -156,7 +158,7 @@ function getCardInfo() {
     })
     .then(res => res.json())
     .then((result) => console.log(result))
- }
+}
 
 
 //Добавление данных новой карточки на сервер !!!
@@ -175,12 +177,6 @@ function postCardInfo (name, link) {
     })
     .then(res => res.json())
     .then((result) => console.log(result))
- }
-
-// Отображение количества лайков карточки!!!
-const sumLike = document.querySelector('.photo-card__like-count').content;
-console.log(sumLike+=1);
-
-function countLike () {
-
 }
+
+
