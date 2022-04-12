@@ -21,6 +21,7 @@ addCardValidator.enableValidation();
 const saveProfileInfo = (data) => {
     const { name, description } = data;
     userInfo.setUserInfo(name, description);
+    postUserInfo(name, description);
     editProfilePopup.close();
 }
 
@@ -39,36 +40,17 @@ const rendererCard = (data) => {
     sectionCards.addItem(card)
 }
 
-//Загрузка карточек с сервера
-
-function getCardInfo () {
-    fetch('https://nomoreparties.co/v1/cohort-39/cards ', {
-      headers: {
-        authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616'
-    }
-    })
-    .then(res => res.json())
-    .then((result) => {
-        
-        console.log(result);
-        return result;
-        
-    }); 
-     
-}
-
-const cards = getCardInfo();
 
 //Отрисовываем все карточки и добавляем на страницу с помощью классов
 const sectionCards = new Section(
     {
-        items: cards,
+        //items: initialCards,
         renderer: rendererCard
     },
     '.photo-cards__list'
 );
 
-sectionCards.renderItems();
+//sectionCards.renderItems();
 
 
 //Попапы 
@@ -93,6 +75,7 @@ function handleCardFormSubmit(data) {
         name: data['card-title'],
         link: data['card-link']
     });
+    postCardInfo(data['card-title'], data['card-link'])
     sectionCards.addItem(card);
     addCardPopup.close();
 }
@@ -115,7 +98,7 @@ profileRedactionButton.addEventListener('click', function () {
 
 
 
-//Получаем с сервера информацию о пользователе и отображаем на странице
+//Получаем с сервера информацию о пользователе и отображаем на странице!!!
 const profileName = document.querySelector('.profile__name');
 const profileAvatar = document.querySelector('.profile__avatar');
 const profileDescription = document.querySelector('.profile__description');
@@ -128,9 +111,8 @@ fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
 })
   .then(res => res.json())
   .then((result) => {
-    
+    console.log(result.name);
     profileName.textContent = result.name;
-   
     profileAvatar.src = result.avatar;
     profileDescription.textContent = result.about;
   }); 
@@ -139,3 +121,66 @@ fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
 
 getUserInfo ()
 
+//Загрузка данных для карточек с сервера + отображение!!!
+function getCardInfo() {
+    fetch('https://nomoreparties.co/v1/cohort-39/cards ', {
+        headers: {
+            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616'
+        }
+    })
+
+    .then(res => res.json())
+    .then((result) => {
+        const arr = result;
+        sectionCards.renderItems(arr)
+
+    })
+       
+} 
+
+ getCardInfo()
+
+ //Редактирование профиля на сервере!!!
+ function postUserInfo (name, about) {
+
+    fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
+        method: 'PATCH',
+        headers: {
+            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            about: about
+          })
+    })
+    .then(res => res.json())
+    .then((result) => console.log(result))
+ }
+
+
+//Добавление данных новой карточки на сервер !!!
+function postCardInfo (name, link) {
+
+    fetch('https://nomoreparties.co/v1/cohort-39/cards', {
+        method: 'POST',
+        headers: {
+            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            link: link
+          })
+    })
+    .then(res => res.json())
+    .then((result) => console.log(result))
+ }
+
+// Отображение количества лайков карточки!!!
+const sumLike = document.querySelector('.photo-card__like-count').content;
+console.log(sumLike+=1);
+
+function countLike () {
+
+}
