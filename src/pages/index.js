@@ -39,10 +39,30 @@ const rendererCard = (data) => {
     sectionCards.addItem(card)
 }
 
+//Загрузка карточек с сервера
+
+function getCardInfo () {
+    fetch('https://nomoreparties.co/v1/cohort-39/cards ', {
+      headers: {
+        authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616'
+    }
+    })
+    .then(res => res.json())
+    .then((result) => {
+        
+        console.log(result);
+        return result;
+        
+    }); 
+     
+}
+
+const cards = getCardInfo();
+
 //Отрисовываем все карточки и добавляем на страницу с помощью классов
 const sectionCards = new Section(
     {
-        items: initialCards,
+        items: cards,
         renderer: rendererCard
     },
     '.photo-cards__list'
@@ -93,4 +113,29 @@ profileRedactionButton.addEventListener('click', function () {
     editProfilePopup.open();
 });
 
+
+
+//Получаем с сервера информацию о пользователе и отображаем на странице
+const profileName = document.querySelector('.profile__name');
+const profileAvatar = document.querySelector('.profile__avatar');
+const profileDescription = document.querySelector('.profile__description');
+
+function getUserInfo () {
+fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
+  headers: {
+    authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    
+    profileName.textContent = result.name;
+   
+    profileAvatar.src = result.avatar;
+    profileDescription.textContent = result.about;
+  }); 
+ 
+}
+
+getUserInfo ()
 
