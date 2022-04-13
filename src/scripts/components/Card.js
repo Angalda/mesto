@@ -6,7 +6,6 @@ class Card {
         this._link = data.link;
         this._likes = data.likes;
         this._cardId = data._id;
-        //this._likesNum = data.likes.length;
         this._alt = data.name;
         this._template = template;
         this._handleImageClick = handleImageClick;
@@ -61,7 +60,11 @@ class Card {
     //функции событий
     _handleLike() {
         this._elementLike.classList.toggle('photo-card__like_active');
-        if (this._elementLike.classList.contains('photo-card__like_active')) { this._removeLike(this._cardId)} else {this._addLike(this._cardId)}
+        if (this._elementLike.classList.contains('photo-card__like_active')) {
+            
+            this._addLike(this._cardId, this._sumLike);
+
+        } else {this._removeLike(this._cardId, this._sumLike)}
         
     }
 

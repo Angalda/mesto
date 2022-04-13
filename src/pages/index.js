@@ -5,7 +5,7 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-//import { PopupDelete } from '../scripts/components/PopupDelete.js';
+import { Popup} from '../scripts/components/Popup.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import '../pages/index.css';
 
@@ -24,6 +24,10 @@ const saveProfileInfo = (data) => {
     userInfo.setUserInfo(name, description);
     postUserInfo(name, description);
     editProfilePopup.close();
+}
+
+const saveUserInfo = (data) => {
+    console.log(data);
 }
 
 
@@ -51,6 +55,7 @@ const sectionCards = new Section(
     '.photo-cards__list'
 );
 
+
 //sectionCards.renderItems();
 
 
@@ -58,11 +63,14 @@ const sectionCards = new Section(
 const imagePopup = new PopupWithImage('.pop-up_type_photo-view');
 const addCardPopup = new PopupWithForm('.pop-up_type_cards', handleCardFormSubmit);
 const editProfilePopup = new PopupWithForm('.pop-up_type_profile', saveProfileInfo);
-//const deletePopup = new PopupDelete('.pop-up_type_delete', )
+const editUserPopup = new PopupWithForm('.pop-up_type_avatar', saveProfileInfo);
+const deletePopup = new Popup ('.pop-up_type_delete',  saveUserInfo);
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
 editProfilePopup.setEventListeners();
+editUserPopup.setEventListeners();
+deletePopup.setEventListeners();
 
 
 const userInfo = new UserInfo({
@@ -101,8 +109,6 @@ profileRedactionButton.addEventListener('click', function () {
     editProfilePopup.open();
 });
 
-
-
 //Получаем с сервера информацию о пользователе и отображаем на странице!!!
 const profileName = document.querySelector('.profile__name');
 const profileAvatar = document.querySelector('.profile__avatar');
@@ -121,7 +127,6 @@ fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
     profileAvatar.src = result.avatar;
     profileDescription.textContent = result.about;
   }); 
- 
 }
 
 getUserInfo ()
@@ -139,8 +144,7 @@ function getCardInfo() {
         const arr = result;
         sectionCards.renderItems(arr)
 
-    })
-       
+    }) 
 } 
 
  getCardInfo()
@@ -197,16 +201,21 @@ function deleteCard (idCard) {
 
 //Постановка и снятие лайка на сервере!!!
 
-function addLike(idCard) {
+function addLike(idCard, likes) {
     fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}/likes`, {
         method: 'PUT',
         headers: {
             authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
         }
     })
+    .then(res => res.json())
+    //.then((result) => console.log(result))
+    .then((result) => {        
+        likes.innerText = result.likes.length;
+    })
 }
 
-function removeLike(idCard) {
+function removeLike(idCard, likes) {
     
     fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}/likes`, {
         method: 'DELETE',
@@ -214,4 +223,24 @@ function removeLike(idCard) {
             authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
         }
     })
+    .then(res => res.json())
+    //.then((result) => console.log(result))
+    .then((result) => {
+        likes.innerText = result.likes.length;
+    }) 
+   
 }
+
+
+//Редактируем аватар
+const profileAvatarEdit = document.querySelector('.profile__avatar-edit');
+const profileAvatarImg = document.querySelector('.profile__avatar-edit-img');
+//profileAvatar
+profileAvatar.addEventListener('mouseenter', () => {profileAvatarEdit.classList.add('profile__avatar-edit_hover')})
+profileAvatar.addEventListener('mouseleave', () => {
+    profileAvatarEdit.classList.remove('profile__avatar-edit_hover');
+    profileAvatarImg.addEventListener('click', () => editUserPopup.open());
+    profileAvatarEdit.addEventListener('click', () => editUserPopup.open())
+
+})
+//profileAvatarImg.addEventListener('click', () => editUserPopup.open())
