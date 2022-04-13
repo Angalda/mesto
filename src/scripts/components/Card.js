@@ -1,14 +1,20 @@
 export { Card }
 
 class Card {
-    constructor(data, template, handleImageClick) {
+    constructor(data, template, handleImageClick, handleDeleteOk, addLike, removeLike) {
         this._name = data.name;
         this._link = data.link;
-        this._likes = data.likes.length;
+        this._likes = data.likes;
+        this._cardId = data._id;
+        //this._likesNum = data.likes.length;
         this._alt = data.name;
         this._template = template;
         this._handleImageClick = handleImageClick;
-        //this._popupDelete = document.querySelector('.pop-up_type_delete');
+        this._popupDelete = document.querySelector('.pop-up_type_delete');
+        this.owner = data.owner;
+        this._handleDeleteOk = handleDeleteOk;
+        this._addLike = addLike;
+        this._removeLike = removeLike;
     }
 
     _getTemplate() {
@@ -35,7 +41,11 @@ class Card {
         this._elementTitle.innerText = this._name;
         this._elementImage.src = this._link;
         this._elementImage.alt = this._alt;
-       // this._sumLike.innerText = this._likes;
+        if (this._likes) {this._sumLike.innerText = this._likes.length} else {
+            this._sumLike.innerText = 0;}
+        if (this.owner) {
+            if (this.owner._id == '9d961b3d492db5d3f8aa9cd8') {this._deleteCard.classList.add('photo-card__delete_visible')}
+        }
         this._setEventListeners();
 
         return this._newItem;
@@ -51,13 +61,20 @@ class Card {
     //функции событий
     _handleLike() {
         this._elementLike.classList.toggle('photo-card__like_active');
-        this._countLike();
+        if (this._elementLike.classList.contains('photo-card__like_active')) { this._removeLike(this._cardId)} else {this._addLike(this._cardId)}
+        
     }
+
 
     _handleDelete() {
         this._popupDelete.classList.add('pop-up_opened');
-        //this._newItem.remove();
-        //this._newItem = null;
+        this._popupDelete.querySelector('.pop-up__submit-form_delete').addEventListener( 'click', () => {
+           this._handleDeleteOk(this._cardId);
+           this._popupDelete.classList.remove('pop-up_opened');
+           this._newItem.remove();
+           this._newItem = null;
+         })
+       
     }
 
    

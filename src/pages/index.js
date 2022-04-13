@@ -5,7 +5,7 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-import { PopupDelete } from '../scripts/components/PopupDelete.js';
+//import { PopupDelete } from '../scripts/components/PopupDelete.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import '../pages/index.css';
 
@@ -29,7 +29,7 @@ const saveProfileInfo = (data) => {
 
 //создание карточки
 function createCard(item) {
-    const newUserCard = new Card(item, '.template', () => imagePopup.open(item.name, item.link));
+    const newUserCard = new Card(item, '.template', () => imagePopup.open(item.name, item.link), deleteCard, addLike, removeLike);
     const card = newUserCard.generateCard();
 
     return card;
@@ -58,7 +58,7 @@ const sectionCards = new Section(
 const imagePopup = new PopupWithImage('.pop-up_type_photo-view');
 const addCardPopup = new PopupWithForm('.pop-up_type_cards', handleCardFormSubmit);
 const editProfilePopup = new PopupWithForm('.pop-up_type_profile', saveProfileInfo);
-const deletePopup = new PopupDelete('.pop-up_type_delete', )
+//const deletePopup = new PopupDelete('.pop-up_type_delete', )
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
@@ -77,7 +77,10 @@ function handleCardFormSubmit(data) {
         name: data['card-title'],
         link: data['card-link']
     });
-    postCardInfo(data['card-title'], data['card-link'])
+    
+    card.querySelector('.photo-card__delete').classList.add('photo-card__delete_visible');
+
+    postCardInfo(data['card-title'], data['card-link']);
     sectionCards.addItem(card);
     addCardPopup.close();
 }
@@ -180,3 +183,35 @@ function postCardInfo (name, link) {
 }
 
 
+//Удаление карточки с сервера!!!
+function deleteCard (idCard) {
+
+    fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+        }
+    })
+}
+
+
+//Постановка и снятие лайка на сервере!!!
+
+function addLike(idCard) {
+    fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}/likes`, {
+        method: 'PUT',
+        headers: {
+            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+        }
+    })
+}
+
+function removeLike(idCard) {
+    
+    fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}/likes`, {
+        method: 'DELETE',
+        headers: {
+            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+        }
+    })
+}

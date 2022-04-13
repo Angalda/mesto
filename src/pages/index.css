@@ -39,6 +39,7 @@
 @import url("../blocks/photo-cards/__list/photo-cards__list.css");
 @import url("../blocks/photo-card/photo-card.css");
 @import url("../blocks/photo-card/__delete/photo-card__delete.css");
+@import url("../blocks/photo-card/__delete/_visible/photo-card__delete_visible.css");
 @import url("../blocks/photo-card/__img/photo-card__img.css");
 @import url("../blocks/photo-card/__bottom/photo-card__bottom.css");
 @import url("../blocks/photo-card/__title/photo-card__title.css");
