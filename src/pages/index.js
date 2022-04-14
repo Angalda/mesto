@@ -7,6 +7,7 @@ import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { Popup} from '../scripts/components/Popup.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
+import { Api } from '../scripts/components/Api.js'
 import '../pages/index.css';
 
 
@@ -20,14 +21,21 @@ addCardValidator.enableValidation();
 
 //Сохраняем информацию в профиле
 const saveProfileInfo = (data) => {
+    
     const { name, description } = data;
     userInfo.setUserInfo(name, description);
     postUserInfo(name, description);
     editProfilePopup.close();
 }
 
+const avatar = document.querySelector('.profile__avatar');
+
 const saveUserInfo = (data) => {
-    console.log(data);
+    avatar.src = data.link;
+    changeAvatar(data);
+    editUserPopup.close();
+
+    
 }
 
 
@@ -63,8 +71,15 @@ const sectionCards = new Section(
 const imagePopup = new PopupWithImage('.pop-up_type_photo-view');
 const addCardPopup = new PopupWithForm('.pop-up_type_cards', handleCardFormSubmit);
 const editProfilePopup = new PopupWithForm('.pop-up_type_profile', saveProfileInfo);
-const editUserPopup = new PopupWithForm('.pop-up_type_avatar', saveProfileInfo);
+const editUserPopup = new PopupWithForm('.pop-up_type_avatar', saveUserInfo);
 const deletePopup = new Popup ('.pop-up_type_delete',  saveUserInfo);
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+    headers: {
+      authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+      'Content-Type': 'application/json'
+    }
+  })
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
@@ -163,6 +178,7 @@ function getCardInfo() {
             about: about
           })
     })
+    //.then ()
     .then(res => res.json())
     .then((result) => console.log(result))
 }
@@ -221,6 +237,7 @@ function removeLike(idCard, likes) {
         method: 'DELETE',
         headers: {
             authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+            
         }
     })
     .then(res => res.json())
@@ -234,13 +251,38 @@ function removeLike(idCard, likes) {
 
 //Редактируем аватар
 const profileAvatarEdit = document.querySelector('.profile__avatar-edit');
-const profileAvatarImg = document.querySelector('.profile__avatar-edit-img');
-//profileAvatar
-profileAvatar.addEventListener('mouseenter', () => {profileAvatarEdit.classList.add('profile__avatar-edit_hover')})
-profileAvatar.addEventListener('mouseleave', () => {
-    profileAvatarEdit.classList.remove('profile__avatar-edit_hover');
-    profileAvatarImg.addEventListener('click', () => editUserPopup.open());
-    profileAvatarEdit.addEventListener('click', () => editUserPopup.open())
 
+profileAvatarEdit.addEventListener('mouseenter', () => {
+    profileAvatarEdit.classList.add('profile__avatar-edit_hover')
 })
-//profileAvatarImg.addEventListener('click', () => editUserPopup.open())
+
+profileAvatarEdit.addEventListener('mouseleave', () => {
+    profileAvatarEdit.classList.remove('profile__avatar-edit_hover');
+})
+
+profileAvatarEdit.addEventListener('click', () => editUserPopup.open());
+
+//Изменение аватара на сервере
+
+function changeAvatar (data) {
+
+    console.log(data);
+
+   
+    
+        fetch('https://nomoreparties.co/v1/cohort-39/users/me/avatar', {
+            method: 'PATCH',
+            headers: {
+                authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: data.link
+              })
+        })
+        .then(res => res.json())
+        .then((result) => console.log(result))
+    
+    
+   
+}
