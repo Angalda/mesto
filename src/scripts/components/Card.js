@@ -34,8 +34,10 @@ class Card {
         this._elementTitle = this._newItem.querySelector('.photo-card__title');
         this._elementImage = this._newItem.querySelector('.photo-card__img');
         this._elementLike = this._newItem.querySelector('.photo-card__like');
+        //this._id = this._newItem.id;
         this._deleteCard = this._newItem.querySelector('.photo-card__delete');
         this._sumLike = this._newItem.querySelector('.photo-card__like-count');
+        
 
         this._elementTitle.innerText = this._name;
         this._elementImage.src = this._link;
@@ -52,24 +54,24 @@ class Card {
 
     //слушатели событий
     _setEventListeners() {
-        this._elementLike.addEventListener('click', () => {this._handleLike()});
-        this._deleteCard.addEventListener('click', () => {this._handleDelete()});
+        this._elementLike.addEventListener('click', () => {this._handleLike(this._cardId)});
+        this._deleteCard.addEventListener('click', () => {this._handleDelete(this._cardId)});
         this._elementImage.addEventListener('click', () => {this._handleImageClick()});
     }
 
     //функции событий
-    _handleLike() {
+    _handleLike(cardId) {
         this._elementLike.classList.toggle('photo-card__like_active');
         if (this._elementLike.classList.contains('photo-card__like_active')) {
             
-            this._addLike(this._cardId, this._sumLike);
+            this._addLike(/*this._cardId*/cardId, this._sumLike);
 
-        } else {this._removeLike(this._cardId, this._sumLike)}
+        } else {this._removeLike(/*this._cardId*/cardId, this._sumLike)}
         
     }
 
 
-    _handleDelete() {
+    _handleDelete(cardId) {
         this._popupDelete.classList.add('pop-up_opened');
         this._popupDelete.querySelector('.pop-up__submit-form_delete').addEventListener( 'click', () => {
            this._handleDeleteOk(this._cardId);

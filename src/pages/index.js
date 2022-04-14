@@ -1,5 +1,5 @@
 import { initialCards, profileRedactionButton, popUpInputName, popUpInputDescription,
-popUpFormProfile, popUpFormCards, addButton, validationConfig } from '../scripts/constants.js';
+popUpFormProfile, popUpFormCards, addButton, validationConfig, profileName, profileAvatar, profileDescription} from '../scripts/constants.js';
 import { Card } from '../scripts/components/Card.js';
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
@@ -24,7 +24,8 @@ const saveProfileInfo = (data) => {
     
     const { name, description } = data;
     userInfo.setUserInfo(name, description);
-    postUserInfo(name, description);
+    //Редактирование профиля на сервере!!!
+    api.postUserInfo(name, description);
     editProfilePopup.close();
 }
 
@@ -32,7 +33,7 @@ const avatar = document.querySelector('.profile__avatar');
 
 const saveUserInfo = (data) => {
     avatar.src = data.link;
-    changeAvatar(data);
+    api.changeAvatar(data);
     editUserPopup.close();
 
     
@@ -62,10 +63,6 @@ const sectionCards = new Section(
     },
     '.photo-cards__list'
 );
-
-
-//sectionCards.renderItems();
-
 
 //Попапы 
 const imagePopup = new PopupWithImage('.pop-up_type_photo-view');
@@ -99,11 +96,12 @@ function handleCardFormSubmit(data) {
     const card = createCard({
         name: data['card-title'],
         link: data['card-link']
+    
     });
     
     card.querySelector('.photo-card__delete').classList.add('photo-card__delete_visible');
-
-    postCardInfo(data['card-title'], data['card-link']);
+    //Добавление данных новой карточки на сервер !!!
+    api.postCardInfo(data['card-title'], data['card-link']);
     sectionCards.addItem(card);
     addCardPopup.close();
 }
@@ -125,127 +123,50 @@ profileRedactionButton.addEventListener('click', function () {
 });
 
 //Получаем с сервера информацию о пользователе и отображаем на странице!!!
-const profileName = document.querySelector('.profile__name');
-const profileAvatar = document.querySelector('.profile__avatar');
-const profileDescription = document.querySelector('.profile__description');
-
-function getUserInfo () {
-fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
-  headers: {
-    authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616'
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result.name);
+function servUserInfo () {
+    api.pullUserInfo()
+    .then((result) => {
     profileName.textContent = result.name;
     profileAvatar.src = result.avatar;
     profileDescription.textContent = result.about;
-  }); 
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
 }
 
-getUserInfo ()
+servUserInfo ()
+
 
 //Загрузка данных для карточек с сервера + отображение!!!
-function getCardInfo() {
-    fetch('https://nomoreparties.co/v1/cohort-39/cards ', {
-        headers: {
-            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616'
-        }
-    })
-
-    .then(res => res.json())
+function pullCardInfo() {
+    api.getCardInfo()
     .then((result) => {
-        const arr = result;
-        sectionCards.renderItems(arr)
+        //const arr = result;
+        sectionCards.renderItems(result)
 
-    }) 
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
 } 
 
- getCardInfo()
-
- //Редактирование профиля на сервере!!!
- function postUserInfo (name, about) {
-
-    fetch('https://nomoreparties.co/v1/cohort-39/users/me', {
-        method: 'PATCH',
-        headers: {
-            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            about: about
-          })
-    })
-    //.then ()
-    .then(res => res.json())
-    .then((result) => console.log(result))
-}
-
-
-//Добавление данных новой карточки на сервер !!!
-function postCardInfo (name, link) {
-
-    fetch('https://nomoreparties.co/v1/cohort-39/cards', {
-        method: 'POST',
-        headers: {
-            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: name,
-            link: link
-          })
-    })
-    .then(res => res.json())
-    .then((result) => console.log(result))
-}
+ pullCardInfo()
 
 
 //Удаление карточки с сервера!!!
 function deleteCard (idCard) {
-
-    fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-        }
-    })
+    api.deleteCard(idCard);
 }
-
 
 //Постановка и снятие лайка на сервере!!!
 
 function addLike(idCard, likes) {
-    fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}/likes`, {
-        method: 'PUT',
-        headers: {
-            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-        }
-    })
-    .then(res => res.json())
-    //.then((result) => console.log(result))
-    .then((result) => {        
-        likes.innerText = result.likes.length;
-    })
+    api.addLike(idCard, likes);
 }
 
 function removeLike(idCard, likes) {
-    
-    fetch(`https://nomoreparties.co/v1/cohort-39/cards/${idCard}/likes`, {
-        method: 'DELETE',
-        headers: {
-            authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-            
-        }
-    })
-    .then(res => res.json())
-    //.then((result) => console.log(result))
-    .then((result) => {
-        likes.innerText = result.likes.length;
-    }) 
-   
+    api.removeLike(idCard, likes)
 }
 
 
@@ -262,27 +183,4 @@ profileAvatarEdit.addEventListener('mouseleave', () => {
 
 profileAvatarEdit.addEventListener('click', () => editUserPopup.open());
 
-//Изменение аватара на сервере
 
-function changeAvatar (data) {
-
-    console.log(data);
-
-   
-    
-        fetch('https://nomoreparties.co/v1/cohort-39/users/me/avatar', {
-            method: 'PATCH',
-            headers: {
-                authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                avatar: data.link
-              })
-        })
-        .then(res => res.json())
-        .then((result) => console.log(result))
-    
-    
-   
-}
