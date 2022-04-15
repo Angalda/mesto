@@ -1,5 +1,5 @@
 import { initialCards, profileRedactionButton, popUpInputName, popUpInputDescription,
-popUpFormProfile, popUpFormCards, addButton, validationConfig, profileName, profileAvatar, profileDescription} from '../scripts/constants.js';
+popUpFormProfile, popUpFormCards, popUpFormAvatar, addButton, validationConfig, profileName, profileAvatar, profileDescription} from '../scripts/constants.js';
 import { Card } from '../scripts/components/Card.js';
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
@@ -13,9 +13,11 @@ import '../pages/index.css';
 
 const editProfileValidator = new FormValidator(validationConfig, popUpFormProfile);
 const addCardValidator = new FormValidator(validationConfig, popUpFormCards);
+const editAvatar =  new FormValidator (validationConfig, popUpFormAvatar);
 
 editProfileValidator.enableValidation();
 addCardValidator.enableValidation();
+editAvatar.enableValidation();
 
 
 
@@ -36,13 +38,12 @@ const saveUserInfo = (data) => {
     api.changeAvatar(data);
     editUserPopup.close();
 
-    
 }
 
 
 //создание карточки
 function createCard(item) {
-    const newUserCard = new Card(item, '.template', () => imagePopup.open(item.name, item.link), deleteCard, addLike, removeLike);
+    const newUserCard = new Card(item, '.template', () => imagePopup.open(item.name, item.link), (idCard) => api.deleteCard(idCard), addLike, removeLike);
     const card = newUserCard.generateCard();
 
     return card;
@@ -93,25 +94,17 @@ const userInfo = new UserInfo({
 
 //Добавление новой карточки
 function handleCardFormSubmit(data) {
-    const card = createCard({
-        name: data['card-title'],
-        link: data['card-link'],
-    }
-    );
-    
-    //card.querySelector('.photo-card__delete').classList.add('photo-card__delete_visible');
-    //Добавление данных новой карточки на сервер !!!
     api.postCardInfo(data['card-title'], data['card-link'])
-    .then((result) => sectionCards.addItem(result))
-
+    .then((result) => sectionCards.addItem(createCard(result)))
 
     .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-    //sectionCards.addItem(card);
-    addCardPopup.close();
+        console.log(err); // выведем ошибку в консоль
+      })
+       
+        addCardPopup.close();
 }
 
+   
 // открываем по клику попап карточек
 addButton.addEventListener('click', () => {
     addCardValidator.resetValidation();
@@ -161,9 +154,10 @@ function pullCardInfo() {
 
 
 //Удаление карточки с сервера!!!
-function deleteCard (idCard) {
+/*function deleteCard(idCard) {
     api.deleteCard(idCard);
-}
+    console.log(idCard);
+}*/
 
 //Постановка и снятие лайка на сервере!!!
 
@@ -187,6 +181,9 @@ profileAvatarEdit.addEventListener('mouseleave', () => {
     profileAvatarEdit.classList.remove('profile__avatar-edit_hover');
 })
 
-profileAvatarEdit.addEventListener('click', () => editUserPopup.open());
+profileAvatarEdit.addEventListener('click', () => {
+    editAvatar.resetValidation();
+    editAvatar.disabledSubmitButton();
+    editUserPopup.open()});
 
 

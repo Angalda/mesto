@@ -72,7 +72,7 @@ postCardInfo (name, link) {
 
 //Удаление карточки с сервера!!!
 deleteCard (idCard) {
-  console.log(idCard)
+  //console.log({idCard});
 
   fetch(`${this._baseUrl}/cards/${idCard}`, {
       method: 'DELETE',
