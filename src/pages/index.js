@@ -95,14 +95,20 @@ const userInfo = new UserInfo({
 function handleCardFormSubmit(data) {
     const card = createCard({
         name: data['card-title'],
-        link: data['card-link']
+        link: data['card-link'],
+    }
+    );
     
-    });
-    
-    card.querySelector('.photo-card__delete').classList.add('photo-card__delete_visible');
+    //card.querySelector('.photo-card__delete').classList.add('photo-card__delete_visible');
     //Добавление данных новой карточки на сервер !!!
-    api.postCardInfo(data['card-title'], data['card-link']);
-    sectionCards.addItem(card);
+    api.postCardInfo(data['card-title'], data['card-link'])
+    .then((result) => sectionCards.addItem(result))
+
+
+    .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+    //sectionCards.addItem(card);
     addCardPopup.close();
 }
 

@@ -54,7 +54,7 @@ export class Api {
 //Добавление данных новой карточки на сервер !!!
 postCardInfo (name, link) {
 
-  fetch(`${this._baseUrl}/cards`, {
+ return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -64,10 +64,10 @@ postCardInfo (name, link) {
   })
   
   .then((res) => this._checkResponse(res))
-  .then((result) => console.log(result))
+  /*.then((result) => console.log(result))
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
-  });
+  });*/
 }
 
 //Удаление карточки с сервера!!!
