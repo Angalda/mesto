@@ -4,8 +4,8 @@
   "description": "**Четвертая проектная работа:** верстка проекта с нуля, адаптив, файловая структура построена по правилам Nested БЭМ, прописена функциональность на js открывания и закрывания pop-up, редактирование имени и информации о себе",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
     "dev": "webpack serve",
+    "build": "webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
@@ -39,3 +39,4 @@
     "core-js": "^3.21.1"
   }
 }
+

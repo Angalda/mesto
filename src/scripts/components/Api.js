@@ -12,11 +12,12 @@ export class Api {
    }
 
   //Получаем с сервера информацию о пользователе
-  pullUserInfo () {
+  getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
     .then((res) => this._checkResponse(res))
+    .catch(console.log)
     
   }
 
@@ -28,6 +29,7 @@ export class Api {
   })
 
   .then((res) => this._checkResponse(res))
+  .catch(console.log)
 } 
 
 
@@ -35,7 +37,7 @@ export class Api {
  //Редактирование профиля на сервере!!!
  postUserInfo (name, about) {
 
-  fetch(`${this._baseUrl}/users/me`, {
+  return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -45,10 +47,7 @@ export class Api {
   })
   
   .then((res) => this._checkResponse(res))
-  .then((result) => console.log(result))
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+  .catch(console.log)
 }
 
 //Добавление данных новой карточки на сервер !!!
@@ -64,10 +63,7 @@ postCardInfo (name, link) {
   })
   
   .then((res) => this._checkResponse(res))
-  /*.then((result) => console.log(result))
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });*/
+  .catch(console.log)
 }
 
 //Удаление карточки с сервера!!!
@@ -79,9 +75,7 @@ deleteCard (idCard) {
       headers: this._headers
   })
   .then((res) => this._checkResponse(res))
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+  .catch(console.log)
 }
 
 //Постановка и снятие лайка на сервере!!!
@@ -96,9 +90,7 @@ addLike(idCard, likes) {
   .then((result) => {        
       likes.innerText = result.likes.length;
   })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+  .catch(console.log)
 }
 
 removeLike(idCard, likes) {
@@ -114,11 +106,10 @@ removeLike(idCard, likes) {
       likes.innerText = result.likes.length;
   }) 
 
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+  .catch(console.log)
  
 }
+
 
 changeAvatar (data) {
 
@@ -140,3 +131,11 @@ changeAvatar (data) {
 }
 
 }
+
+export const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
+  headers: {
+    authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
+    'Content-Type': 'application/json'
+  }
+})

@@ -7,9 +7,33 @@ import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { Popup} from '../scripts/components/Popup.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
-import { Api } from '../scripts/components/Api.js'
+import { api } from '../scripts/components/Api.js'
 import '../pages/index.css';
 
+api.getProfile();
+api.getCardInfo();
+
+let userId;
+const initialArray = [api.getProfile(), api.getCardInfo()]
+
+Promise.all(initialArray)
+    .then (
+        ([res, cardList]) => {
+        //получаем информацию о пользователе с сервера
+        
+        userInfo.setUserInfo(res.name, res.about);
+        userInfo.setUserAvatar(res.avatar);
+
+        userId = res._id;
+
+        //загрузка карточек с сервера
+        sectionCards.renderItems(cardList);
+
+    })
+    .catch(console.log);
+
+    api.getProfile();
+    api.getCardInfo();
 
 const editProfileValidator = new FormValidator(validationConfig, popUpFormProfile);
 const addCardValidator = new FormValidator(validationConfig, popUpFormCards);
@@ -24,13 +48,16 @@ editAvatar.enableValidation();
 //Сохраняем информацию в профиле
 const saveProfileInfo = (data) => {
     
-    const { name, description } = data;
-    userInfo.setUserInfo(name, description);
+    const { name, description} = data;
     //Редактирование профиля на сервере!!!
-    api.postUserInfo(name, description);
+    api.postUserInfo(name, description)
+    .then(() => {userInfo.setUserInfo(name, description);
     editProfilePopup.close();
+    }) 
 }
 
+
+//меняем аватар
 const avatar = document.querySelector('.profile__avatar');
 
 const saveUserInfo = (data) => {
@@ -43,7 +70,22 @@ const saveUserInfo = (data) => {
 
 //создание карточки
 function createCard(item) {
-    const newUserCard = new Card(item, '.template', () => imagePopup.open(item.name, item.link), (idCard) => api.deleteCard(idCard), addLike, removeLike);
+    const newUserCard = new Card(item, userId, '.template', 
+    () => imagePopup.open(item.name, item.link), 
+    (id) => {
+        deletePopup.open();
+        deletePopup.changeSubmitHandler(() => {
+            api.deleteCard(id)
+            .then((res) =>{
+                newUserCard.deleteCard();
+                deletePopup.close();
+            })
+        
+        })
+    }, 
+    //(idCard) => api.deleteCard(idCard), 
+    addLike, removeLike);
+
     const card = newUserCard.generateCard();
 
     return card;
@@ -70,14 +112,8 @@ const imagePopup = new PopupWithImage('.pop-up_type_photo-view');
 const addCardPopup = new PopupWithForm('.pop-up_type_cards', handleCardFormSubmit);
 const editProfilePopup = new PopupWithForm('.pop-up_type_profile', saveProfileInfo);
 const editUserPopup = new PopupWithForm('.pop-up_type_avatar', saveUserInfo);
-const deletePopup = new Popup ('.pop-up_type_delete',  saveUserInfo);
-const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
-    headers: {
-      authorization: '2ee8c513-1056-4e42-b03f-51f9bdfbc616',
-      'Content-Type': 'application/json'
-    }
-  })
+const deletePopup = new PopupWithForm ('.pop-up_type_delete', saveUserInfo);
+
 
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
@@ -88,7 +124,8 @@ deletePopup.setEventListeners();
 
 const userInfo = new UserInfo({
     profileNameSelector: '.profile__name',
-    profileJobSelector: '.profile__description'
+    profileJobSelector: '.profile__description',
+    profileAvatar: '.profile__avatar'
 })
 
 
@@ -97,10 +134,7 @@ function handleCardFormSubmit(data) {
     api.postCardInfo(data['card-title'], data['card-link'])
     .then((result) => sectionCards.addItem(createCard(result)))
 
-    .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      })
-       
+    
         addCardPopup.close();
 }
 
@@ -120,44 +154,6 @@ profileRedactionButton.addEventListener('click', function () {
     editProfileValidator.resetValidation();
     editProfilePopup.open();
 });
-
-//Получаем с сервера информацию о пользователе и отображаем на странице!!!
-function servUserInfo () {
-    api.pullUserInfo()
-    .then((result) => {
-    profileName.textContent = result.name;
-    profileAvatar.src = result.avatar;
-    profileDescription.textContent = result.about;
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
-}
-
-servUserInfo ()
-
-
-//Загрузка данных для карточек с сервера + отображение!!!
-function pullCardInfo() {
-    api.getCardInfo()
-    .then((result) => {
-        //const arr = result;
-        sectionCards.renderItems(result)
-
-    })
-    .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
-} 
-
- pullCardInfo()
-
-
-//Удаление карточки с сервера!!!
-/*function deleteCard(idCard) {
-    api.deleteCard(idCard);
-    console.log(idCard);
-}*/
 
 //Постановка и снятие лайка на сервере!!!
 
@@ -187,3 +183,63 @@ profileAvatarEdit.addEventListener('click', () => {
     editUserPopup.open()});
 
 
+
+
+//Получаем с сервера информацию о пользователе и отображаем на странице!!!
+/*function servUserInfo () {
+    api.getProfile()
+    .then((result) => {
+    profileName.textContent = result.name;
+    profileAvatar.src = result.avatar;
+    profileDescription.textContent = result.about;
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+}*/
+
+
+
+
+//Загрузка данных для карточек с сервера + отображение!!!
+/*function pullCardInfo() {
+    api.getCardInfo()
+    .then((result) => {
+        //const arr = result;
+        sectionCards.renderItems(result)
+
+    })
+    .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+} 
+
+ pullCardInfo()*/
+
+ //const popupDelete = document.querySelector('.pop-up_type_delete');
+ 
+ /*function handleDeleteOk (){
+    api.deleteCard (idCard)
+ }*/
+
+
+
+
+
+
+ /*function handleDelete() {
+    
+    popupDelete.classList.add('pop-up_opened');
+}*/
+   
+
+/*
+//Удаление карточки с сервера!!!
+function deleteCard(idCard) {
+    api.deleteCard(idCard);
+    console.log(idCard);
+}
+*/
+
+    
+    
