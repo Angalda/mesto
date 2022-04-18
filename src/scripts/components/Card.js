@@ -1,7 +1,7 @@
 export { Card }
 
 class Card {
-    constructor(data, userId, template, handleImageClick, handleDelete, /*handleDeleteOk,*/ addLike, removeLike) {
+    constructor(data, userId, template, handleImageClick, handleDelete, addLike, removeLike) {
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
@@ -12,11 +12,7 @@ class Card {
         this._template = template;
         this._handleImageClick = handleImageClick;
 
-        //this._popupDelete = document.querySelector('.pop-up_type_delete');
-        //this._yesButton = this._popupDelete.querySelector('.pop-up__submit-form_delete');
         this._handleDelete = handleDelete; //обработчик корзины
-
-        //this._handleDeleteOk = handleDeleteOk;
         this._addLike = addLike;
         this._removeLike = removeLike;
     }
@@ -56,7 +52,6 @@ class Card {
         this._deleteCard = this._newItem.querySelector('.photo-card__delete');
         this._sumLike = this._newItem.querySelector('.photo-card__like-count');
         
-
         this._elementTitle.innerText = this._name;
         this._elementImage.src = this._link;
         this._elementImage.alt = this._alt;
@@ -92,18 +87,9 @@ class Card {
 
 
     deleteCard() {
-       /* this._popupDelete.classList.add('pop-up_opened');
-        this._yesButton.addEventListener( 'click', () => {
-           this._handleDeleteOk(this._cardId); 
-           this._popupDelete.classList.remove('pop-up_opened');*/
-           this._newItem.remove();
-           this._newItem = null;
-
-       
+        this._newItem.remove();
+        this._newItem = null;
     }
-
-   
-
 
 }
 

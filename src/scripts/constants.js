@@ -7,9 +7,9 @@ export const popUpFormProfile = document.querySelector('.pop-up__form_profle');
 export const popUpFormCards = document.querySelector('.pop-up__form-cards');
 export const popUpFormAvatar = document.querySelector('.pop-up__form_avatar');
 export const addButton = document.querySelector('.profile__add-button');
-export const profileName = document.querySelector('.profile__name');
-export const profileAvatar = document.querySelector('.profile__avatar');
-export const profileDescription = document.querySelector('.profile__description');
+//export const profileName = document.querySelector('.profile__name');
+//export const profileAvatar = document.querySelector('.profile__avatar');
+//export const profileDescription = document.querySelector('.profile__description');
 
 //Валидатор
 export const validationConfig = {

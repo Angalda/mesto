@@ -70,7 +70,7 @@ postCardInfo (name, link) {
 deleteCard (idCard) {
   //console.log({idCard});
 
-  fetch(`${this._baseUrl}/cards/${idCard}`, {
+  return fetch(`${this._baseUrl}/cards/${idCard}`, {
       method: 'DELETE',
       headers: this._headers
   })
