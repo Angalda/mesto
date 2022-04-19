@@ -115,7 +115,7 @@ changeAvatar (data) {
 
   console.log(data);
   
-      fetch(`${this._baseUrl}/users/me/avatar`, {
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
           method: 'PATCH',
           headers: this._headers,
           body: JSON.stringify({
@@ -123,10 +123,10 @@ changeAvatar (data) {
             })
       })
       .then((res) => this._checkResponse(res))
-      .then((result) => console.log(result))
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+      //.then((result) => console.log(result))
+      //.catch((err) => {
+       // console.log(err); // выведем ошибку в консоль
+      //});
  
 }
 

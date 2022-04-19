@@ -43,14 +43,23 @@ editAvatar.enableValidation();
 
 //Сохраняем информацию в профиле
 const saveProfileInfo = (data) => {
-
+    editProfilePopup.buttonTextChange() 
     const { name, description } = data;
     //Редактирование профиля на сервере!!!
     api.postUserInfo(name, description)
+       
         .then(() => {
-            userInfo.setUserInfo(name, description);
-            editProfilePopup.close();
+            userInfo.setUserInfo(name, description)
         })
+
+        .then(()=>{
+            editProfilePopup.close()
+        })
+
+        .finally(() => {
+           editProfilePopup.buttonTextToDefolt()
+        });
+
 }
 
 
@@ -58,10 +67,18 @@ const saveProfileInfo = (data) => {
 const avatar = document.querySelector('.profile__avatar');
 
 const saveUserInfo = (data) => {
+    editUserPopup.buttonTextChange();
     avatar.src = data.link;
     api.changeAvatar(data)
-   
-    editUserPopup.close();
+
+    .then(()=>{
+        editUserPopup.close();
+    })
+    .finally(() => {
+        editUserPopup.buttonTextToDefolt();
+    });
+    
+    
 }
 
 
@@ -72,13 +89,16 @@ function createCard(item) {
         (id) => {
             deletePopup.open();
             deletePopup.changeSubmitHandler(() => {
+                
                 api.deleteCard(id)
                     .then((res) => {
                         console.log(res);
                         newUserCard.deleteCard();
+                    })
+                    .then(()=>{
                         deletePopup.close();
                     })
-
+                    
             })
         },
 
@@ -98,7 +118,6 @@ const rendererCard = (data) => {
 //Отрисовываем все карточки и добавляем на страницу с помощью классов
 const sectionCards = new Section(
     {
-        //items: initialCards,
         renderer: rendererCard
     },
     '.photo-cards__list'
@@ -145,10 +164,16 @@ const userInfo = new UserInfo({
 
 //Добавление новой карточки
 function handleCardFormSubmit(data) {
+    addCardPopup.buttonTextChange();
     api.postCardInfo(data['card-title'], data['card-link'])
         .then((result) => sectionCards.addItem(createCard(result)))
-
-    addCardPopup.close();
+        .then(()=>{
+            addCardPopup.close();
+        })
+        .finally(() => {
+            addCardPopup.buttonTextToDefolt();
+        });
+    
 }
 
 
