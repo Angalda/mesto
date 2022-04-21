@@ -17,7 +17,7 @@ export class Api {
       headers: this._headers
     })
     .then((res) => this._checkResponse(res))
-    .catch(console.log)
+    
     
   }
 
@@ -29,7 +29,7 @@ export class Api {
   })
 
   .then((res) => this._checkResponse(res))
-  .catch(console.log)
+  
 } 
 
 
@@ -47,7 +47,7 @@ export class Api {
   })
   
   .then((res) => this._checkResponse(res))
-  .catch(console.log)
+  
 }
 
 //Добавление данных новой карточки на сервер !!!
@@ -63,7 +63,7 @@ postCardInfo (name, link) {
   })
   
   .then((res) => this._checkResponse(res))
-  .catch(console.log)
+  
 }
 
 //Удаление карточки с сервера!!!
@@ -75,7 +75,7 @@ deleteCard (idCard) {
       headers: this._headers
   })
   .then((res) => this._checkResponse(res))
-  .catch(console.log)
+  
 }
 
 //Постановка и снятие лайка на сервере!!!
@@ -90,7 +90,7 @@ addLike(idCard, likes) {
   .then((result) => {        
       likes.innerText = result.likes.length;
   })
-  .catch(console.log)
+  
 }
 
 removeLike(idCard, likes) {
@@ -106,7 +106,6 @@ removeLike(idCard, likes) {
       likes.innerText = result.likes.length;
   }) 
 
-  .catch(console.log)
  
 }
 
@@ -123,10 +122,7 @@ changeAvatar (data) {
             })
       })
       .then((res) => this._checkResponse(res))
-      //.then((result) => console.log(result))
-      //.catch((err) => {
-       // console.log(err); // выведем ошибку в консоль
-      //});
+    
  
 }
 

@@ -12,20 +12,20 @@ import { UserInfo } from '../scripts/components/UserInfo.js';
 import { api } from '../scripts/components/Api.js'
 import '../pages/index.css';
 
-api.getProfile();
-api.getCardInfo();
+//api.getProfile();
+//api.getCardInfo();
 
 let userId;
 const initialArray = [api.getProfile(), api.getCardInfo()]
 
 Promise.all(initialArray)
     .then(
-        ([res, cardList]) => {
+        ([userData, cardList]) => {
             //получаем информацию о пользователе с сервера
-            userInfo.setUserInfo(res.name, res.about);
-            userInfo.setUserAvatar(res.avatar);
+            userInfo.setUserInfo(userData.name, userData.about);
+            userInfo.setUserAvatar(userData.avatar);
 
-            userId = res._id;
+            userId = userData._id;
 
             //загрузка карточек с сервера
             sectionCards.renderItems(cardList);
@@ -56,6 +56,8 @@ const saveProfileInfo = (data) => {
             editProfilePopup.close()
         })
 
+        .catch(console.log)
+
         .finally(() => {
            editProfilePopup.buttonTextToDefolt()
         });
@@ -74,6 +76,7 @@ const saveUserInfo = (data) => {
     .then(()=>{
         editUserPopup.close();
     })
+    .catch(console.log)
     .finally(() => {
         editUserPopup.buttonTextToDefolt();
     });
@@ -98,6 +101,7 @@ function createCard(item) {
                     .then(()=>{
                         deletePopup.close();
                     })
+                    .catch(console.log)
                     
             })
         },
@@ -170,6 +174,7 @@ function handleCardFormSubmit(data) {
         .then(()=>{
             addCardPopup.close();
         })
+        .catch(console.log)
         .finally(() => {
             addCardPopup.buttonTextToDefolt();
         });
