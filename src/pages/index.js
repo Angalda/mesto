@@ -7,7 +7,7 @@ import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
-import { Popup } from '../scripts/components/Popup.js';
+
 import { UserInfo } from '../scripts/components/UserInfo.js';
 import { api } from '../scripts/components/Api.js'
 import '../pages/index.css';
@@ -43,7 +43,7 @@ editAvatar.enableValidation();
 
 //Сохраняем информацию в профиле
 const saveProfileInfo = (data) => {
-    editProfilePopup.buttonTextChange() 
+    editProfilePopup.renderLoading() 
     const { name, description } = data;
     //Редактирование профиля на сервере!!!
     api.postUserInfo(name, description)
@@ -59,26 +59,27 @@ const saveProfileInfo = (data) => {
         .catch(console.log)
 
         .finally(() => {
-           editProfilePopup.buttonTextToDefolt()
+           editProfilePopup.renderLoadingFinish()
         });
 
 }
 
 
 //меняем аватар
-const avatar = document.querySelector('.profile__avatar');
+//const avatar = document.querySelector('.profile__avatar');
 
 const saveUserInfo = (data) => {
-    editUserPopup.buttonTextChange();
-    avatar.src = data.link;
+    editUserPopup.renderLoading();
+   // avatar.src = data.link;
     api.changeAvatar(data)
+    .then(()=>{userInfo.setUserAvatar(data.link)})
 
     .then(()=>{
         editUserPopup.close();
     })
     .catch(console.log)
     .finally(() => {
-        editUserPopup.buttonTextToDefolt();
+        editUserPopup.renderLoadingFinish();
     });
     
     
@@ -154,7 +155,7 @@ profileAvatarEdit.addEventListener('mouseleave', () => {
 
 profileAvatarEdit.addEventListener('click', () => {
     editAvatar.resetValidation();
-    editAvatar.disabledSubmitButton();
+    //editAvatar.disabledSubmitButton();
     editUserPopup.open()
 });
 
@@ -168,7 +169,7 @@ const userInfo = new UserInfo({
 
 //Добавление новой карточки
 function handleCardFormSubmit(data) {
-    addCardPopup.buttonTextChange();
+    addCardPopup.renderLoading();
     api.postCardInfo(data['card-title'], data['card-link'])
         .then((result) => sectionCards.addItem(createCard(result)))
         .then(()=>{
@@ -176,7 +177,7 @@ function handleCardFormSubmit(data) {
         })
         .catch(console.log)
         .finally(() => {
-            addCardPopup.buttonTextToDefolt();
+            addCardPopup.renderLoadingFinish();
         });
     
 }
@@ -200,13 +201,21 @@ profileRedactionButton.addEventListener('click', function () {
 
 //Постановка и снятие лайка на сервере!!!
 
-function addLike(idCard, likes) {
-    api.addLike(idCard, likes);
+function addLike(idCard, sumLikes, element) {
+    api.addLike(idCard, sumLikes)
+    .then((result) => {        
+        sumLikes.innerText = result.likes.length;
+        element.classList.add('photo-card__like_active');
+    })
+   
+    
 }
 
-function removeLike(idCard, likes) {
-    api.removeLike(idCard, likes)
+function removeLike(idCard, sumLikes, element) {
+    api.removeLike(idCard, sumLikes)
+    .then((result) => {
+        sumLikes.innerText = result.likes.length;
+        element.classList.remove('photo-card__like_active');
+    }) 
+    
 }
-
-
-

@@ -9,13 +9,14 @@ export class PopupWithForm extends Popup {
         this._getInputValues = this._getInputValues.bind(this);
         this._button = this._popup.querySelector('.pop-up__submit-form');
         this._text = this._button.innerText;
+        this._inputs = [...this._form.querySelectorAll('.pop-up__input')];
     }
     
     
     _getInputValues () {
-        const inputs = [...this._form.querySelectorAll('.pop-up__input')];
+        //const inputs = [...this._form.querySelectorAll('.pop-up__input')];
         const values = {}
-        inputs.forEach(input => {
+        this._inputs.forEach(input => {
             values[input.name] = input.value
         });
 
@@ -36,12 +37,12 @@ export class PopupWithForm extends Popup {
          });
     }
 
-    buttonTextChange () {
+
+    renderLoading () {
         this._button.innerText=('Сохранение...');
     }
     
-
-    buttonTextToDefolt () {
+    renderLoadingFinish () {
         this._button.innerText=this._text;
     }
 

@@ -81,31 +81,23 @@ deleteCard (idCard) {
 //Постановка и снятие лайка на сервере!!!
 
 addLike(idCard, likes) {
-  fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
+  return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'PUT',
       headers: this._headers
   })
   .then((res) => this._checkResponse(res))
-  
-  .then((result) => {        
-      likes.innerText = result.likes.length;
-  })
-  
+
 }
 
 removeLike(idCard, likes) {
     
-  fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
+  return fetch(`${this._baseUrl}/cards/${idCard}/likes`, {
       method: 'DELETE',
       headers: this._headers
   })
 
   .then((res) => this._checkResponse(res))
   
-  .then((result) => {
-      likes.innerText = result.likes.length;
-  }) 
-
  
 }
 
