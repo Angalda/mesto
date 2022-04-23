@@ -12,9 +12,6 @@ import { UserInfo } from '../scripts/components/UserInfo.js';
 import { api } from '../scripts/components/Api.js'
 import '../pages/index.css';
 
-//api.getProfile();
-//api.getCardInfo();
-
 let userId;
 const initialArray = [api.getProfile(), api.getCardInfo()]
 
@@ -64,7 +61,6 @@ const saveProfileInfo = (data) => {
 
 }
 
-
 //меняем аватар
 //const avatar = document.querySelector('.profile__avatar');
 
@@ -81,7 +77,6 @@ const saveUserInfo = (data) => {
     .finally(() => {
         editUserPopup.renderLoadingFinish();
     });
-    
     
 }
 
@@ -135,7 +130,6 @@ const editProfilePopup = new PopupWithForm('.pop-up_type_profile', saveProfileIn
 const editUserPopup = new PopupWithForm('.pop-up_type_avatar', saveUserInfo);
 const deletePopup = new PopupWithForm('.pop-up_type_delete', saveUserInfo);
 
-
 imagePopup.setEventListeners();
 addCardPopup.setEventListeners();
 editProfilePopup.setEventListeners();
@@ -166,7 +160,6 @@ const userInfo = new UserInfo({
     profileAvatar: '.profile__avatar'
 })
 
-
 //Добавление новой карточки
 function handleCardFormSubmit(data) {
     addCardPopup.renderLoading();
@@ -182,13 +175,11 @@ function handleCardFormSubmit(data) {
     
 }
 
-
 // открываем по клику попап карточек
 addButton.addEventListener('click', () => {
     addCardValidator.resetValidation();
     addCardPopup.open();
 });
-
 
 //Открываем по клику попап профиль
 profileRedactionButton.addEventListener('click', function () {
@@ -207,7 +198,6 @@ function addLike(idCard, sumLikes, element) {
         sumLikes.innerText = result.likes.length;
         element.classList.add('photo-card__like_active');
     })
-   
     
 }
 
