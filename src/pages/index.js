@@ -192,20 +192,22 @@ profileRedactionButton.addEventListener('click', function () {
 
 //Постановка и снятие лайка на сервере!!!
 
-function addLike(idCard, sumLikes, element) {
+function addLike(idCard, sumLikes, card) {
     api.addLike(idCard, sumLikes)
     .then((result) => {        
         sumLikes.innerText = result.likes.length;
-        element.classList.add('photo-card__like_active');
+        card.toggleClass();
     })
+    .catch(console.log)
     
 }
 
-function removeLike(idCard, sumLikes, element) {
+function removeLike(idCard, sumLikes, card) {
     api.removeLike(idCard, sumLikes)
     .then((result) => {
         sumLikes.innerText = result.likes.length;
-        element.classList.remove('photo-card__like_active');
+        card.toggleClass();
     }) 
+    .catch(console.log)
     
 }

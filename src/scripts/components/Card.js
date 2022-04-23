@@ -74,12 +74,9 @@ class Card {
         this._elementImage.addEventListener('click', () => {this._handleImageClick()});
     }
 
-    addClass () {
-        this._elementLike.classList.add('photo-card__like_active');
-    }
-
-    removeClass () {
-        this._elementLike.classList.remove('photo-card__like_active');
+  
+    toggleClass () {
+        this._elementLike.classList.toggle('photo-card__like_active');
     }
 
     //функции событий
@@ -87,28 +84,11 @@ class Card {
         
 
         if (this._elementLike.classList.contains('photo-card__like_active')) {
-            this._removeLike(this._cardId, this._sumLike, this._elementLike)
-            /*.then((result) => {
-                this._sumLike.innerText = result.likes.length;
-                this.toggleClass();
-            }) */
-            
-            
-
-        } else {//this._removeLike(this._cardId, this._sumLike)
-            this._addLike(this._cardId, this._sumLike, this._elementLike)
-            /*.then((result) => {        
-                this._sumLike.innerText = result.likes.length;
-                this.toggleClass();
-            })*/
-            //.then(this._elementLike.classList.toggle('photo-card__like_active'));
-           //.then(()=>{this._toggleClass ()})
-
+            this._removeLike(this._cardId, this._sumLike, this)
+        } else {
+            this._addLike(this._cardId, this._sumLike, this)        
         }
-        //.then(this._elementLike.classList.toggle('photo-card__like_active'));
-        
     }
-
 
     deleteCard() {
         this._newItem.remove();
